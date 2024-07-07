@@ -2,6 +2,26 @@
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+  <!--  Using Shorthands: Fg = Foreground, Bg = Background/Alternate, Mg = Middle Ground/Highlight, Img = Image, as well for Colors  -->
+
+  <BitmapImage x:Key="CheckmarkImg" UriSource="pack://application:,,,/Images/check.png" />
+  <BitmapImage x:Key="ErrorImg" UriSource="pack://application:,,,/Images/error.png" />
+  <BitmapImage x:Key="WarningImg" UriSource="pack://application:,,,/Images/warning.png" />
+
+  <BitmapImage x:Key="FanucImg" UriSource="pack://application:,,,/Images/fanuc_black.png" />
+  <BitmapImage x:Key="OmronImg" UriSource="pack://application:,,,/Images/omron_black.png" />
+  <BitmapImage x:Key="Robot1Img" UriSource="pack://application:,,,/Images/robot_1_black.png" />
+  <BitmapImage x:Key="Robot2Img" UriSource="pack://application:,,,/Images/robot_2_black.png" />
+  <BitmapImage x:Key="Robot3Img" UriSource="pack://application:,,,/Images/robot_3_black.png" />
+  <BitmapImage x:Key="Robot4Img" UriSource="pack://application:,,,/Images/robot_4_black.png" />
+
+  <BitmapImage x:Key="ExportNotesImg" UriSource="pack://application:,,,/Images/export_notes_white.png" />
+  <BitmapImage x:Key="RobotHeadImg" UriSource="pack://application:,,,/Images/robot_white.png" />
+
+  <BitmapImage x:Key="BatteryImg" UriSource="pack://application:,,,/Images/battery_4_black.png" />
+  <BitmapImage x:Key="ShieldImg" UriSource="pack://application:,,,/Images/shield_with_heart.png" />
+
   <sys:Int32 x:Key="PseudoShadow">8</sys:Int32>
   <GridLength x:Key="PseudoShadowGridLength">8</GridLength>
 
@@ -102,14 +122,14 @@
   <Color x:Key="TextWhite">#fff</Color>
   <SolidColorBrush x:Key="TextWhiteBrush" Color="{StaticResource TextWhite}" />
 
-  <Style x:Key="FontStyle" TargetType="Control">
+  <Style x:Key="FontStyle" TargetType="TextBlock">
     <Setter Property="FontFamily" Value="{StaticResource Inter}" />
   </Style>
 
   <Style
     x:Key="Header1"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="24" />
     <Setter Property="FontWeight" Value="Regular" />
     <Setter Property="Foreground" Value="{StaticResource TextHeaderBrush}" />
@@ -118,7 +138,7 @@
   <Style
     x:Key="Header2"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="18" />
     <Setter Property="FontWeight" Value="Regular" />
     <Setter Property="Foreground" Value="{StaticResource TextHeaderBrush}" />
@@ -127,7 +147,7 @@
   <Style
     x:Key="Header3"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="15" />
     <Setter Property="FontWeight" Value="Regular" />
     <Setter Property="Foreground" Value="{StaticResource TextHeaderBrush}" />
@@ -136,7 +156,7 @@
   <Style
     x:Key="Paragraph1"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="16" />
     <Setter Property="FontWeight" Value="Medium" />
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
@@ -145,7 +165,7 @@
   <Style
     x:Key="Paragraph2"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="16" />
     <Setter Property="FontWeight" Value="Light" />
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
@@ -154,7 +174,7 @@
   <Style
     x:Key="Paragraph3"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="14" />
     <Setter Property="FontWeight" Value="Light" />
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
@@ -163,7 +183,7 @@
   <Style
     x:Key="Paragraph4"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="12" />
     <Setter Property="FontWeight" Value="Regular" />
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
@@ -172,7 +192,7 @@
   <Style
     x:Key="Paragraph5"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="14" />
     <Setter Property="FontWeight" Value="Medium" />
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
@@ -181,7 +201,7 @@
   <Style
     x:Key="HeaderTab"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="15" />
     <Setter Property="FontWeight" Value="SemiBold" />
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
@@ -190,7 +210,7 @@
   <Style
     x:Key="HeaderTable"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="12" />
     <Setter Property="FontWeight" Value="SemiBold" />
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
@@ -208,7 +228,7 @@
   <Style
     x:Key="ParagraphInfo"
     BasedOn="{StaticResource FontStyle}"
-    TargetType="Control">
+    TargetType="TextBlock">
     <Setter Property="FontSize" Value="10" />
     <Setter Property="FontWeight" Value="Regular" />
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />

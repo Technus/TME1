@@ -5,6 +5,11 @@
   xmlns:local="clr-namespace:TME1.UI"
   StartupUri="MainWindow.xaml">
   <Application.Resources>
-    <ResourceDictionary Source="Style.xaml" />
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Styles/TMEStyle.xaml" />
+        <ResourceDictionary Source="Styles/ButtonStyle.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
   </Application.Resources>
 </Application>
