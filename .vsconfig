@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "extensions": [
+    "https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsls-vs-2022",
+    "https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler2022",
+    "https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaidVS2022",
+    "https://marketplace.visualstudio.com/items?itemName=MadsKristensen.FileIcons",
+    "https://marketplace.visualstudio.com/items?itemName=FortuneNgwenya.FineCodeCoverage2022",
+    "https://marketplace.visualstudio.com/items?itemName=SharpDevelopTeam.ILSpy2022",
+    "https://marketplace.visualstudio.com/items?itemName=KentonStandard.JsonFormatter",
+    "https://marketplace.visualstudio.com/items?itemName=NikolayBalakin.Outputenhancer",
+    "https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RainbowBraces",
+    "https://marketplace.visualstudio.com/items?itemName=SonarSource.SonarLintforVisualStudio2022",
+    "https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput64",
+    "https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler2022",
+  ]
+}

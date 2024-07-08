@@ -1,0 +1,84 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{450CA69C-BC6C-4D03-9FC6-AB584CD1B151}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B96C7D02-4478-4C77-A6D7-9C1DF4A6E48E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.vsconfig = .vsconfig
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abstractions", "Abstractions\Abstractions.csproj", "{364C46E0-0B25-4AAE-9162-AC43E3FDB972}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{51837E08-0499-41E3-AB39-6936D5BF5CE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{364E83E2-386B-457E-876D-637202CF8DA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{46E4E7DD-3FBE-4568-8C79-522B4174679A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specification", "Specification", "{9137949F-CAF7-419F-A246-FF7F32242F55}"
+	ProjectSection(SolutionItems) = preProject
+		Specification\AppDesignSystem.pdf = Specification\AppDesignSystem.pdf
+		Specification\battery_4_black.png = Specification\battery_4_black.png
+		Specification\check.png = Specification\check.png
+		Specification\error.png = Specification\error.png
+		Specification\export_notes_white.png = Specification\export_notes_white.png
+		Specification\fanuc_black.png = Specification\fanuc_black.png
+		Specification\omron_black.png = Specification\omron_black.png
+		Specification\robot_1_black.png = Specification\robot_1_black.png
+		Specification\robot_2_black.png = Specification\robot_2_black.png
+		Specification\robot_3_black.png = Specification\robot_3_black.png
+		Specification\robot_4_black.png = Specification\robot_4_black.png
+		Specification\robot_white.png = Specification\robot_white.png
+		Specification\shield_with_heart.png = Specification\shield_with_heart.png
+		Specification\warning.png = Specification\warning.png
+		Specification\Zadanie - Programista - TME.docx = Specification\Zadanie - Programista - TME.docx
+		Specification\Zadanie - Programista - TME.pdf = Specification\Zadanie - Programista - TME.pdf
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{842E4E0B-7E53-4441-AA49-1E1BD8374A1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{450CA69C-BC6C-4D03-9FC6-AB584CD1B151}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{450CA69C-BC6C-4D03-9FC6-AB584CD1B151}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{450CA69C-BC6C-4D03-9FC6-AB584CD1B151}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{450CA69C-BC6C-4D03-9FC6-AB584CD1B151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{364C46E0-0B25-4AAE-9162-AC43E3FDB972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{364C46E0-0B25-4AAE-9162-AC43E3FDB972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{364C46E0-0B25-4AAE-9162-AC43E3FDB972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{364C46E0-0B25-4AAE-9162-AC43E3FDB972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51837E08-0499-41E3-AB39-6936D5BF5CE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51837E08-0499-41E3-AB39-6936D5BF5CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51837E08-0499-41E3-AB39-6936D5BF5CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51837E08-0499-41E3-AB39-6936D5BF5CE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{364E83E2-386B-457E-876D-637202CF8DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{364E83E2-386B-457E-876D-637202CF8DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{364E83E2-386B-457E-876D-637202CF8DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{364E83E2-386B-457E-876D-637202CF8DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46E4E7DD-3FBE-4568-8C79-522B4174679A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E4E7DD-3FBE-4568-8C79-522B4174679A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E4E7DD-3FBE-4568-8C79-522B4174679A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E4E7DD-3FBE-4568-8C79-522B4174679A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{842E4E0B-7E53-4441-AA49-1E1BD8374A1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842E4E0B-7E53-4441-AA49-1E1BD8374A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842E4E0B-7E53-4441-AA49-1E1BD8374A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842E4E0B-7E53-4441-AA49-1E1BD8374A1A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12C96FE2-BC84-43A7-A883-5D172042404D}
+	EndGlobalSection
+EndGlobal
