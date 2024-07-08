@@ -17,7 +17,7 @@ public interface IRobot<out TKey> : IIDentifiable<TKey>
   /// <summary>
   /// Robot charge level in range from 0 to 1
   /// </summary>
-  /// <remarks>Use <see cref="float.NaN"/> for unknown values</remarks>
+  /// <remarks>Use negative number for unknown values</remarks>
   float ChargeLevel { get; }
   /// <summary>
   /// Current site it is located at
