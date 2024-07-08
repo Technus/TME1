@@ -122,15 +122,15 @@
     <comment>Used to mark all Robots in a combobox</comment>
   </data>
   <data name="Battery" xml:space="preserve">
-    <value>Battery</value>
+    <value>Battery:</value>
     <comment>Robot battery charge level</comment>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Location</value>
+    <value>Location:</value>
     <comment>Robot location (like city/building/id etc.)</comment>
   </data>
   <data name="Position" xml:space="preserve">
-    <value>Position</value>
+    <value>Position:</value>
     <comment>Robot position (like safe/unsafe/off/cooperating)</comment>
   </data>
   <data name="Robot" xml:space="preserve">

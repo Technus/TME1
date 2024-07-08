@@ -70,7 +70,7 @@ namespace TME1.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Battery.
+        ///   Looks up a localized string similar to Battery:.
         /// </summary>
         internal static string Battery {
             get {
@@ -79,7 +79,7 @@ namespace TME1.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Location.
+        ///   Looks up a localized string similar to Location:.
         /// </summary>
         internal static string Location {
             get {
@@ -88,7 +88,7 @@ namespace TME1.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Position.
+        ///   Looks up a localized string similar to Position:.
         /// </summary>
         internal static string Position {
             get {
