@@ -2,14 +2,15 @@
 using Lamar.Microsoft.DependencyInjection;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
-using T.Pipes.Abstractions;
 
 namespace TME1.UI;
 /// <summary>
 /// Application root of composition
 /// </summary>
-internal class Bootstrapper : CheckedBaseClass
+internal class Bootstrapper : IDisposable
 {
+  private bool _disposedValue;
+
   /// <summary>
   /// Constructed host
   /// </summary>
@@ -33,10 +34,21 @@ internal class Bootstrapper : CheckedBaseClass
       .AddMediatR(configuration => configuration
         .RegisterServicesFromAssemblyContaining<Bootstrapper>()));
 
-  protected override void DisposeCore(bool disposing, bool includeAsync)
+  protected virtual void Dispose(bool disposing)
   {
-    if(disposing)
-      AppHost.Dispose();
-    base.DisposeCore(disposing, includeAsync);
+    if (!_disposedValue)
+    {
+      if (disposing)
+      {
+        AppHost.Dispose();
+      }
+      _disposedValue = true;
+    }
+  }
+
+  public void Dispose()
+  {
+    Dispose(disposing: true);
+    GC.SuppressFinalize(this);
   }
 }
