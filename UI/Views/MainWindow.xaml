@@ -12,8 +12,8 @@
   Title="{lex:Loc MainWindowTitle}"
   d:DataContext="{d:DesignInstance Type={x:Type vm:MainWindowViewModelDesign},
                                    IsDesignTimeCreatable=True}"
-  d:Height="480"
-  d:Width="640"
+  d:Height="440"
+  d:Width="1000"
   lex:LocalizeDictionary.OutputMissingKeys="True"
   lex:ResxLocalizationProvider.DefaultAssembly="TME1.UI"
   lex:ResxLocalizationProvider.DefaultDictionary="Resources"
@@ -32,26 +32,40 @@
     <!--  Top bar  -->
     <StackPanel Style="{StaticResource ToLeft}">
       <TextBlock Style="{StaticResource PaddedParagraph3}" Text="{lex:Loc Robot}" />
-      <Button Style="{StaticResource NavButtonLeft}" />
-      <ComboBox/>
-      <Button Style="{StaticResource NavButtonRight}" />
+      <Button
+        Command="{Binding NavigateLeftCommand}"
+        IsEnabled="{Binding CanNavigate}"
+        Style="{StaticResource NavButtonLeft}" />
+      <ComboBox
+        IsEnabled="{Binding CanNavigate}"
+        ItemsSource="{Binding AllRobotTiles}"
+        SelectedIndex="{Binding SelectedRobotIndex}"
+        SelectedItem="{Binding SelectedRobot}" />
+      <Button
+        Command="{Binding NavigateRightCommand}"
+        IsEnabled="{Binding CanNavigate}"
+        Style="{StaticResource NavButtonRight}" />
     </StackPanel>
 
     <StackPanel Grid.Column="2" Style="{StaticResource ToRight}">
-      <Button Style="{StaticResource PrimaryButton}">
+      <Button
+        Command="{Binding UpdateRobotCommand}"
+        IsEnabled="{Binding CanUpdateRobot}"
+        Style="{StaticResource PrimaryButton}">
         <Image Source="{StaticResource ExportNotesImg}" Style="{StaticResource PaddedMenuIcon}" />
       </Button>
-      <Button Style="{StaticResource PrimaryButton}">
+      <Button Command="{Binding LoadRobotsCommand}" Style="{StaticResource PrimaryButton}">
         <Image Source="{StaticResource RobotHeadImg}" Style="{StaticResource PaddedMenuIcon}" />
       </Button>
     </StackPanel>
     <!--  Center zone  -->
+
     <controls:GridView
       Grid.Row="2"
       Grid.ColumnSpan="{StaticResource SpanAll}"
       BorderThickness="0"
       ItemContainerStyle="{StaticResource ItemContainer}"
       ItemTemplate="{StaticResource RobotTileTemplate}"
-      ItemsSource="{Binding VisibleRobotTiles}" />
+      ItemsSource="{Binding FilteredRobotTiles}" />
   </Grid>
 </Window>
