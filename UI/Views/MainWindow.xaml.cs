@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TME1.UI;
+namespace TME1.UI.ViewModels;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>

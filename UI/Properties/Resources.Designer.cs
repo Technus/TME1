@@ -88,6 +88,15 @@ namespace TME1.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Robot Status Browser.
+        /// </summary>
+        internal static string MainWindowTitle {
+            get {
+                return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position:.
         /// </summary>
         internal static string Position {

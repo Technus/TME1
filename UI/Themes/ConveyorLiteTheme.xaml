@@ -3,11 +3,18 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-  <!--  Using Shorthands: Fg = Foreground, Bg = Background/Alternate, Mg = Middle Ground/Highlight, Img = Image, as well for Colors  -->
+  <!--  Using Shorthands: Fg = Foreground, Bg = Background/Alternate, Mg = Middle Ground/Highlight, Img = Image, as well as single letter mnemonics for Colors  -->
+
+  <!--#region Status Images-->
 
   <BitmapImage x:Key="CheckmarkImg" UriSource="pack://application:,,,/Images/check.png" />
   <BitmapImage x:Key="ErrorImg" UriSource="pack://application:,,,/Images/error.png" />
   <BitmapImage x:Key="WarningImg" UriSource="pack://application:,,,/Images/warning.png" />
+  <BitmapImage x:Key="SpinImg" UriSource="pack://application:,,,/Images/spin_round.png" />
+
+  <!--#endregion-->
+
+  <!--#region Robot Images-->
 
   <BitmapImage x:Key="FanucImg" UriSource="pack://application:,,,/Images/fanuc_black.png" />
   <BitmapImage x:Key="OmronImg" UriSource="pack://application:,,,/Images/omron_black.png" />
@@ -16,17 +23,40 @@
   <BitmapImage x:Key="Robot3Img" UriSource="pack://application:,,,/Images/robot_3_black.png" />
   <BitmapImage x:Key="Robot4Img" UriSource="pack://application:,,,/Images/robot_4_black.png" />
 
+  <!--#endregion-->
+
+  <!--#region Button Images-->
+
   <BitmapImage x:Key="ExportNotesImg" UriSource="pack://application:,,,/Images/export_notes_white.png" />
   <BitmapImage x:Key="RobotHeadImg" UriSource="pack://application:,,,/Images/robot_white.png" />
+
+  <!--#endregion-->
+
+  <!--#region Misc. Images-->
 
   <BitmapImage x:Key="BatteryImg" UriSource="pack://application:,,,/Images/battery_4_black.png" />
   <BitmapImage x:Key="ShieldImg" UriSource="pack://application:,,,/Images/shield_with_heart.png" />
 
-  <sys:Int32 x:Key="PseudoShadow">8</sys:Int32>
+  <!--#endregion-->
+
+  <!--#region Constants-->
+
+  <sys:Double x:Key="PseudoShadow">8</sys:Double>
   <GridLength x:Key="PseudoShadowGridLength">8</GridLength>
 
-  <Color x:Key="Invisible">#00000000</Color>
-  <SolidColorBrush x:Key="InvisibleBrush" Color="{StaticResource Invisible}" />
+  <Thickness x:Key="StandardMargin">8</Thickness>
+  <GridLength x:Key="StandardMarginGridLength">8</GridLength>
+  <Thickness x:Key="ThickMargin">16</Thickness>
+  <GridLength x:Key="ThickMarginGridLength">16</GridLength>
+
+  <Thickness x:Key="HorizontalMargin">16,8</Thickness>
+
+  <sys:Double x:Key="MenuSize">35</sys:Double>
+  <sys:Double x:Key="IconSize">20</sys:Double>
+
+  <!--#endregion-->
+
+  <!--#region Primary Colors-->
 
   <Color x:Key="PrimaryMgB1">#001954</Color>
   <SolidColorBrush x:Key="PrimaryMgB1Brush" Color="{StaticResource PrimaryMgB1}" />
@@ -42,6 +72,10 @@
   <SolidColorBrush x:Key="PrimaryBgB4Brush" Color="{StaticResource PrimaryBgB4}" />
   <Color x:Key="PrimaryMgB5">#D3DEF8</Color>
   <SolidColorBrush x:Key="PrimaryMgB5Brush" Color="{StaticResource PrimaryMgB5}" />
+
+  <!--#endregion-->
+
+  <!--#region Secondary Colors-->
 
   <Color x:Key="SecondaryFgY1">#FDB500</Color>
   <SolidColorBrush x:Key="SecondaryFgY1Brush" Color="{StaticResource SecondaryFgY1}" />
@@ -60,6 +94,10 @@
   <Color x:Key="SecondaryBgB4">#0171CE</Color>
   <SolidColorBrush x:Key="SecondaryBgB4Brush" Color="{StaticResource SecondaryBgB4}" />
 
+  <!--#endregion-->
+
+  <!--#region Ternary Colors-->
+
   <Color x:Key="TernaryFgV1">#961AF8</Color>
   <SolidColorBrush x:Key="TernaryFgV1Brush" Color="{StaticResource TernaryFgV1}" />
   <Color x:Key="TernaryBgV1">#7709CE</Color>
@@ -74,6 +112,10 @@
   <SolidColorBrush x:Key="TernaryBgN1Brush" Color="{StaticResource TernaryBgN1}" />
   <Color x:Key="TernaryMgC1">#ed4d5a</Color>
   <SolidColorBrush x:Key="TernaryMgC1Brush" Color="{StaticResource TernaryMgC1}" />
+
+  <!--#endregion-->
+
+  <!--#region Gray Colors-->
 
   <Color x:Key="BlackMg">#000</Color>
   <SolidColorBrush x:Key="BlackMgBrush" Color="{StaticResource BlackMg}" />
@@ -92,6 +134,10 @@
   <Color x:Key="WhiteMg">#FFFFFF</Color>
   <SolidColorBrush x:Key="WhiteMgBrush" Color="{StaticResource WhiteMg}" />
 
+  <!--#endregion-->
+
+  <!--#region Status Colors-->
+
   <Color x:Key="StatusMgY">#F7CC5F</Color>
   <SolidColorBrush x:Key="StatusMgYBrush" Color="{StaticResource StatusMgY}" />
   <Color x:Key="StatusMgG">#6EEB87</Color>
@@ -100,6 +146,10 @@
   <SolidColorBrush x:Key="StatusMgRBrush" Color="{StaticResource StatusMgR}" />
   <Color x:Key="StatusMgB">#77BDF7</Color>
   <SolidColorBrush x:Key="StatusMgBBrush" Color="{StaticResource StatusMgB}" />
+
+  <!--#endregion-->
+
+  <!--#region Location Colors-->
 
   <Color x:Key="LocationFgB">#2196F3</Color>
   <SolidColorBrush x:Key="LocationFgBBrush" Color="{StaticResource LocationFgB}" />
@@ -114,7 +164,10 @@
   <Color x:Key="LocationBgG">#02770E</Color>
   <SolidColorBrush x:Key="LocationBgGBrush" Color="{StaticResource LocationBgG}" />
 
-  <FontFamily x:Key="Inter">pack://application:,,,/Fonts/#Inter</FontFamily>
+  <!--#endregion-->
+
+  <!--#region Text Colors-->
+
   <Color x:Key="TextHeader">#1d3883</Color>
   <SolidColorBrush x:Key="TextHeaderBrush" Color="{StaticResource TextHeader}" />
   <Color x:Key="TextRegular">#1c1c1c</Color>
@@ -122,9 +175,20 @@
   <Color x:Key="TextWhite">#fff</Color>
   <SolidColorBrush x:Key="TextWhiteBrush" Color="{StaticResource TextWhite}" />
 
+  <!--#endregion-->
+
+  <!--#region Font-->
+
+  <FontFamily x:Key="Inter">pack://application:,,,/Fonts/#Inter</FontFamily>
   <Style x:Key="FontStyle" TargetType="TextBlock">
     <Setter Property="FontFamily" Value="{StaticResource Inter}" />
   </Style>
+
+  <!--#endregion-->
+
+  <!--  Despise this document being the theme, there are styles below. (Very generic font style definitions directly derived from specification.)  -->
+
+  <!--#region Header Styles-->
 
   <Style
     x:Key="Header1"
@@ -152,6 +216,10 @@
     <Setter Property="FontWeight" Value="Regular" />
     <Setter Property="Foreground" Value="{StaticResource TextHeaderBrush}" />
   </Style>
+
+  <!--#endregion-->
+
+  <!--#region Paragraph Styles-->
 
   <Style
     x:Key="Paragraph1"
@@ -198,6 +266,10 @@
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
   </Style>
 
+  <!--#endregion-->
+
+  <!--#region Misc. Text Styles-->
+
   <Style
     x:Key="HeaderTab"
     BasedOn="{StaticResource FontStyle}"
@@ -233,5 +305,107 @@
     <Setter Property="FontWeight" Value="Regular" />
     <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
   </Style>
+
+  <!--#endregion-->
+
+  <!--#region Drawings-->
+
+  <DrawingImage x:Key="ArrowNavRight">
+    <DrawingImage.Drawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen
+            Brush="{StaticResource BlackMgBrush}"
+            DashCap="Flat"
+            Thickness="3" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry>
+            <PathFigure
+              IsClosed="False"
+              IsFilled="False"
+              StartPoint="0,0">
+              <LineSegment Point="10,10" />
+              <LineSegment Point="0,20" />
+            </PathFigure>
+          </PathGeometry>
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <DrawingImage x:Key="ArrowNavRightOff">
+    <DrawingImage.Drawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen
+            Brush="{StaticResource GrayMg4Brush}"
+            DashCap="Flat"
+            Thickness="3" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry>
+            <PathFigure
+              IsClosed="False"
+              IsFilled="False"
+              StartPoint="0,0">
+              <LineSegment Point="10,10" />
+              <LineSegment Point="0,20" />
+            </PathFigure>
+          </PathGeometry>
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <DrawingImage x:Key="ArrowNavLeft">
+    <DrawingImage.Drawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen
+            Brush="{StaticResource BlackMgBrush}"
+            DashCap="Flat"
+            Thickness="3" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry>
+            <PathFigure
+              IsClosed="False"
+              IsFilled="False"
+              StartPoint="20,0">
+              <LineSegment Point="10,10" />
+              <LineSegment Point="20,20" />
+            </PathFigure>
+          </PathGeometry>
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <DrawingImage x:Key="ArrowNavLeftOff">
+    <DrawingImage.Drawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen
+            Brush="{StaticResource GrayMg4Brush}"
+            DashCap="Flat"
+            Thickness="3" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry>
+            <PathFigure
+              IsClosed="False"
+              IsFilled="False"
+              StartPoint="20,0">
+              <LineSegment Point="10,10" />
+              <LineSegment Point="20,20" />
+            </PathFigure>
+          </PathGeometry>
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <!--#endregion-->
 
 </ResourceDictionary>

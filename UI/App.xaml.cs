@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using System.Windows;
+﻿using System.Windows;
 
 namespace TME1.UI;
 /// <summary>
@@ -11,9 +10,9 @@ public partial class App : Application
 
   protected override void OnStartup(StartupEventArgs e)
   {
-    _bootstrapper = new Bootstrapper(e.Args);
-    _bootstrapper.AppHost.Start();
     base.OnStartup(e);
+    _bootstrapper = new Bootstrapper(e.Args);
+    _bootstrapper.Start(this);
   }
 
   protected override void OnExit(ExitEventArgs e)

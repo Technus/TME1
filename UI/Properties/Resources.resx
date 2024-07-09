@@ -129,6 +129,10 @@
     <value>Location:</value>
     <comment>Robot location (like city/building/id etc.)</comment>
   </data>
+  <data name="MainWindowTitle" xml:space="preserve">
+    <value>Robot Status Browser</value>
+    <comment>Title for the main window of the app</comment>
+  </data>
   <data name="Position" xml:space="preserve">
     <value>Position:</value>
     <comment>Robot position (like safe/unsafe/off/cooperating)</comment>

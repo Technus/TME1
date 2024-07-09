@@ -4,4 +4,9 @@
     <Setter Property="HorizontalAlignment" Value="Left" />
     <Setter Property="Orientation" Value="Horizontal" />
   </Style>
+  <Style x:Key="ToRight" TargetType="StackPanel">
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="Orientation" Value="Horizontal" />
+  </Style>
 </ResourceDictionary>

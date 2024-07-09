@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Style
+    x:Key="CenteredParagraph1"
+    BasedOn="{StaticResource Paragraph1}"
+    TargetType="TextBlock">
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+  </Style>
+
+  <Style
+    x:Key="PaddedParagraph3"
+    BasedOn="{StaticResource Paragraph3}"
+    TargetType="TextBlock">
+    <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+  </Style>
+
+  <Style
+    x:Key="PaddedParagraph5"
+    BasedOn="{StaticResource Paragraph5}"
+    TargetType="TextBlock">
+    <Setter Property="Margin" Value="{StaticResource StandardMargin}" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+  </Style>
+</ResourceDictionary>
