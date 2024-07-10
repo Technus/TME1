@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using TME1.UI.ViewModels;
 using TME1.UI.Views;
+using ExpressMapper;
 
 namespace TME1.UI;
 /// <summary>
@@ -30,10 +31,13 @@ public class Bootstrapper : IDisposable
   /// </summary>
   /// <param name="args"></param>
   /// <returns></returns>
-  private static IHostBuilder CreateHostBuilder(string[]? args) => Host.CreateDefaultBuilder(args)
+  private static IHostBuilder CreateHostBuilder(string[]? args) => Host
+    .CreateDefaultBuilder(args)
     .UseLamar()
     .UseSerilog()
+    .UseMapper()
     .ConfigureServices(services=> services
+      .AddSingleton<IMappingServiceProvider, MappingServiceProvider>()
       .AddSingleton<MainWindow>()
       .AddSingleton<MainWindowViewModel>()
       .AddMediatR(configuration => configuration
