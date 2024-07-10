@@ -2,23 +2,24 @@
 
 namespace TME1.Abstractions.DataTransferObjects;
 /// <summary>
-/// Message with robot status update
+/// Abstraction over message with robot status update
 /// </summary>
+/// <remarks>Used to ensure consistency between layers</remarks>
 public interface IRobotStateUpdate<out TKey> : IIDentifiable<TKey>
 {
   /// <summary>
-  /// Status to set
+  /// <see cref="IRobot{TKey}.Status"/> to set
   /// </summary>
-  /// <remarks>strictly always updates the status</remarks>
+  /// <remarks>always updates</remarks>
   RobotStatus Status { get; }
   /// <summary>
-  /// Status message to set
+  /// <see cref="IRobot{TKey}.StatusMessage"/> to set
   /// </summary>
-  /// <remarks>null will keep the same message</remarks>
+  /// <remarks>null will keep the same value</remarks>
   string? StatusMessage { get; }
   /// <summary>
-  /// Battery level to set, 
+  /// <see cref="IRobot{TKey}.ChargeLevel"/> to set
   /// </summary>
-  /// <remarks>See <see cref="IRobot{TKey}.ChargeLevel"/></remarks>
+  /// <remarks>always updates</remarks>
   float ChargeLevel { get; }
 }

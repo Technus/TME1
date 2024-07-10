@@ -1,6 +1,6 @@
 ﻿namespace TME1.Abstractions;
 /// <summary>
-/// Common logic for database objects
+/// Common logic for data objects to identify them
 /// </summary>
 /// <typeparam name="TId">Identifier type</typeparam>
 public interface IIDentifiable<out TId>

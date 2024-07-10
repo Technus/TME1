@@ -1,6 +1,6 @@
 ﻿namespace TME1.Abstractions.Enumerations;
 /// <summary>
-/// Status enumeration to limit and define possible states
+/// Represents robot status from the task/operability standpoint
 /// </summary>
 public enum RobotStatus
 {

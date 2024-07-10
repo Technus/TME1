@@ -11,8 +11,8 @@ public interface IRobotStateService<TKey>
     /// <summary>
     /// Fetches new robot state from source
     /// </summary>
-    /// <param name="robot"></param>
+    /// <param name="robotId"></param>
     /// <param name="cancellationToken"></param>
     /// <returns>the update to process</returns>
-    Task<Fin<IRobotStateUpdate<TKey>>> UpdateAsync(TKey robot, CancellationToken cancellationToken = default);
+    Task<Fin<IRobotStateUpdate<TKey>>> UpdateAsync(TKey robotId, CancellationToken cancellationToken = default);
 }

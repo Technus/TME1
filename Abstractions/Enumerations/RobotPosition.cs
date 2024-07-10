@@ -1,6 +1,6 @@
 ﻿namespace TME1.Abstractions.Enumerations;
 /// <summary>
-/// Descri
+/// Represents robot position from the safety standpoint
 /// </summary>
 public enum RobotPosition
 {

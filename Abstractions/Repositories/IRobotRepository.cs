@@ -6,6 +6,7 @@ namespace TME1.Abstractions.Repositories;
 /// For abstracting robot DB data context manipulation
 /// </summary>
 /// <typeparam name="TRobot">the robot data type</typeparam>
+/// <remarks>To allow DB replacement</remarks>
 public interface IRobotRepository<TKey, TRobot> where TRobot : IRobot<TKey>
 {
   /// <summary>
@@ -46,10 +47,4 @@ public interface IRobotRepository<TKey, TRobot> where TRobot : IRobot<TKey>
   /// <returns>modified robot</returns>
   /// <remarks>return may happen before or after DB was written</remarks>
   Task<Fin<TRobot>> StateUpdateAsync(IRobotStateUpdate<TKey> stateUpdate, CancellationToken cancellationToken = default);
-  /// <summary>
-  /// Explicitly saves chanes to persistent storage
-  /// </summary>
-  /// <param name="cancellationToken"></param>
-  /// <returns>if any operation was performed</returns>
-  Task<Fin<bool>> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
