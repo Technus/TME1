@@ -6,7 +6,10 @@ namespace TME1.Abstractions.Repositories;
 /// For abstracting robot DB data context manipulation
 /// </summary>
 /// <typeparam name="TRobot">the robot data type</typeparam>
-/// <remarks>To allow DB replacement</remarks>
+/// <remarks>
+/// To allow DB replacement<br/>
+/// Could be replaced by CQRS to further refine it into smaller pieces, but this is relatively simple CRUD app
+/// </remarks>
 public interface IRobotRepository<TKey, TRobot> where TRobot : IRobot<TKey>
 {
   /// <summary>

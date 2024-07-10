@@ -1,0 +1,414 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <!--  Ideally all entries should be frozen  -->
+
+  <!--  Using Shorthands: Fg = Foreground, Bg = Background/Alternate, Mg = Middle Ground/Highlight, Img = Image, as well as single letter mnemonics for Colors  -->
+
+  <!--#region Status Images-->
+
+  <BitmapImage x:Key="CheckmarkImg" UriSource="pack://application:,,,/Images/check.png" />
+  <BitmapImage x:Key="ErrorImg" UriSource="pack://application:,,,/Images/error.png" />
+  <BitmapImage x:Key="WarningImg" UriSource="pack://application:,,,/Images/warning.png" />
+  <BitmapImage x:Key="SpinImg" UriSource="pack://application:,,,/Images/spin_round.png" />
+
+  <!--#endregion-->
+
+  <!--#region Robot Images-->
+
+  <BitmapImage x:Key="FanucImg" UriSource="pack://application:,,,/Images/fanuc_black.png" />
+  <BitmapImage x:Key="OmronImg" UriSource="pack://application:,,,/Images/omron_black.png" />
+  <BitmapImage x:Key="Robot1Img" UriSource="pack://application:,,,/Images/robot_1_black.png" />
+  <BitmapImage x:Key="Robot2Img" UriSource="pack://application:,,,/Images/robot_2_black.png" />
+  <BitmapImage x:Key="Robot3Img" UriSource="pack://application:,,,/Images/robot_3_black.png" />
+  <BitmapImage x:Key="Robot4Img" UriSource="pack://application:,,,/Images/robot_4_black.png" />
+
+  <!--#endregion-->
+
+  <!--#region Button Images-->
+
+  <BitmapImage x:Key="ExportNotesImg" UriSource="pack://application:,,,/Images/export_notes_white.png" />
+  <BitmapImage x:Key="RobotHeadWhiteImg" UriSource="pack://application:,,,/Images/robot_white.png" />
+  <BitmapImage x:Key="RobotHeadGrayImg" UriSource="pack://application:,,,/Images/robot_gray.png" />
+  <BitmapImage x:Key="RobotHeadBlackImg" UriSource="pack://application:,,,/Images/robot_black.png" />
+
+  <!--#endregion-->
+
+  <!--#region Misc. Images-->
+
+  <BitmapImage x:Key="BatteryImg" UriSource="pack://application:,,,/Images/battery_4_black.png" />
+  <BitmapImage x:Key="ShieldImg" UriSource="pack://application:,,,/Images/shield_with_heart.png" />
+
+  <!--#endregion-->
+
+  <!--#region Constants-->
+
+  <sys:Double x:Key="PseudoShadow">8</sys:Double>
+  <GridLength x:Key="PseudoShadowGridLength">8</GridLength>
+
+  <Thickness x:Key="StandardMargin">8</Thickness>
+  <GridLength x:Key="StandardMarginGridLength">8</GridLength>
+  <Thickness x:Key="ThickMargin">16</Thickness>
+  <GridLength x:Key="ThickMarginGridLength">16</GridLength>
+
+  <Thickness x:Key="HorizontalMargin">16,8</Thickness>
+
+  <sys:Double x:Key="MenuSize">35</sys:Double>
+  <sys:Double x:Key="IconSize">20</sys:Double>
+
+  <!--#endregion-->
+
+  <!--#region Primary Colors-->
+
+  <Color x:Key="PrimaryMgB1">#001954</Color>
+  <SolidColorBrush x:Key="PrimaryMgB1Brush" Color="{StaticResource PrimaryMgB1}" />
+  <Color x:Key="PrimaryFgB2">#163683</Color>
+  <SolidColorBrush x:Key="PrimaryFgB2Brush" Color="{StaticResource PrimaryFgB2}" />
+  <Color x:Key="PrimaryBgB2">#042062</Color>
+  <SolidColorBrush x:Key="PrimaryBgB2Brush" Color="{StaticResource PrimaryBgB2}" />
+  <Color x:Key="PrimaryMgB3">#1E48AE</Color>
+  <SolidColorBrush x:Key="PrimaryMgB3Brush" Color="{StaticResource PrimaryMgB3}" />
+  <Color x:Key="PrimaryFgB4">#A8BDF0</Color>
+  <SolidColorBrush x:Key="PrimaryFgB4Brush" Color="{StaticResource PrimaryFgB4}" />
+  <Color x:Key="PrimaryBgB4">#6783C9</Color>
+  <SolidColorBrush x:Key="PrimaryBgB4Brush" Color="{StaticResource PrimaryBgB4}" />
+  <Color x:Key="PrimaryMgB5">#D3DEF8</Color>
+  <SolidColorBrush x:Key="PrimaryMgB5Brush" Color="{StaticResource PrimaryMgB5}" />
+
+  <!--#endregion-->
+
+  <!--#region Secondary Colors-->
+
+  <Color x:Key="SecondaryFgY1">#FDB500</Color>
+  <SolidColorBrush x:Key="SecondaryFgY1Brush" Color="{StaticResource SecondaryFgY1}" />
+  <Color x:Key="SecondaryBgY1">#E5A500</Color>
+  <SolidColorBrush x:Key="SecondaryBgY1Brush" Color="{StaticResource SecondaryBgY1}" />
+  <Color x:Key="SecondaryFgG2">#00E12D</Color>
+  <SolidColorBrush x:Key="SecondaryFgG2Brush" Color="{StaticResource SecondaryFgG2}" />
+  <Color x:Key="SecondaryBgG2">#03AC25</Color>
+  <SolidColorBrush x:Key="SecondaryBgG2Brush" Color="{StaticResource SecondaryBgG2}" />
+  <Color x:Key="SecondaryFgR3">#F80016</Color>
+  <SolidColorBrush x:Key="SecondaryFgR3Brush" Color="{StaticResource SecondaryFgR3}" />
+  <Color x:Key="SecondaryBgR3">#B90010</Color>
+  <SolidColorBrush x:Key="SecondaryBgR3Brush" Color="{StaticResource SecondaryBgR3}" />
+  <Color x:Key="SecondaryFgB4">#1A93F8</Color>
+  <SolidColorBrush x:Key="SecondaryFgB4Brush" Color="{StaticResource SecondaryFgB4}" />
+  <Color x:Key="SecondaryBgB4">#0171CE</Color>
+  <SolidColorBrush x:Key="SecondaryBgB4Brush" Color="{StaticResource SecondaryBgB4}" />
+
+  <!--#endregion-->
+
+  <!--#region Ternary Colors-->
+
+  <Color x:Key="TernaryFgV1">#961AF8</Color>
+  <SolidColorBrush x:Key="TernaryFgV1Brush" Color="{StaticResource TernaryFgV1}" />
+  <Color x:Key="TernaryBgV1">#7709CE</Color>
+  <SolidColorBrush x:Key="TernaryBgV1Brush" Color="{StaticResource TernaryBgV1}" />
+  <Color x:Key="TernaryFgT1">#00E1E1</Color>
+  <SolidColorBrush x:Key="TernaryFgT1Brush" Color="{StaticResource TernaryFgT1}" />
+  <Color x:Key="TernaryBgT1">#00BEBE</Color>
+  <SolidColorBrush x:Key="TernaryBgT1Brush" Color="{StaticResource TernaryBgT1}" />
+  <Color x:Key="TernaryFgN1">#1A58F8</Color>
+  <SolidColorBrush x:Key="TernaryFgN1Brush" Color="{StaticResource TernaryFgN1}" />
+  <Color x:Key="TernaryBgN1">#003ACE</Color>
+  <SolidColorBrush x:Key="TernaryBgN1Brush" Color="{StaticResource TernaryBgN1}" />
+  <Color x:Key="TernaryMgC1">#ed4d5a</Color>
+  <SolidColorBrush x:Key="TernaryMgC1Brush" Color="{StaticResource TernaryMgC1}" />
+
+  <!--#endregion-->
+
+  <!--#region Gray Colors-->
+
+  <Color x:Key="BlackMg">#000</Color>
+  <SolidColorBrush x:Key="BlackMgBrush" Color="{StaticResource BlackMg}" />
+  <Color x:Key="GrayFg1">#1C1C1C</Color>
+  <SolidColorBrush x:Key="GrayFg1Brush" Color="{StaticResource GrayFg1}" />
+  <Color x:Key="GrayBg1">#595959</Color>
+  <SolidColorBrush x:Key="GrayBg1Brush" Color="{StaticResource GrayBg1}" />
+  <Color x:Key="GrayMg2">#9C9C9C</Color>
+  <SolidColorBrush x:Key="GrayMg2Brush" Color="{StaticResource GrayMg2}" />
+  <Color x:Key="GrayMg3">#BDBDBD</Color>
+  <SolidColorBrush x:Key="GrayMg3Brush" Color="{StaticResource GrayMg3}" />
+  <Color x:Key="GrayMg4">#DBDBDB</Color>
+  <SolidColorBrush x:Key="GrayMg4Brush" Color="{StaticResource GrayMg4}" />
+  <Color x:Key="GrayMg5">#F5F5F5</Color>
+  <SolidColorBrush x:Key="GrayMg5Brush" Color="{StaticResource GrayMg5}" />
+  <Color x:Key="WhiteMg">#FFFFFF</Color>
+  <SolidColorBrush x:Key="WhiteMgBrush" Color="{StaticResource WhiteMg}" />
+
+  <!--#endregion-->
+
+  <!--#region Status Colors-->
+
+  <Color x:Key="StatusMgY">#F7CC5F</Color>
+  <SolidColorBrush x:Key="StatusMgYBrush" Color="{StaticResource StatusMgY}" />
+  <Color x:Key="StatusMgG">#6EEB87</Color>
+  <SolidColorBrush x:Key="StatusMgGBrush" Color="{StaticResource StatusMgG}" />
+  <Color x:Key="StatusMgR">#F74252</Color>
+  <SolidColorBrush x:Key="StatusMgRBrush" Color="{StaticResource StatusMgR}" />
+  <Color x:Key="StatusMgB">#77BDF7</Color>
+  <SolidColorBrush x:Key="StatusMgBBrush" Color="{StaticResource StatusMgB}" />
+
+  <!--#endregion-->
+
+  <!--#region Location Colors-->
+
+  <Color x:Key="LocationFgB">#2196F3</Color>
+  <SolidColorBrush x:Key="LocationFgBBrush" Color="{StaticResource LocationFgB}" />
+  <Color x:Key="LocationBgB">#1565C0</Color>
+  <SolidColorBrush x:Key="LocationBgBBrush" Color="{StaticResource LocationBgB}" />
+  <Color x:Key="LocationFgM">#C2175B</Color>
+  <SolidColorBrush x:Key="LocationFgMBrush" Color="{StaticResource LocationFgM}" />
+  <Color x:Key="LocationBgM">#911245</Color>
+  <SolidColorBrush x:Key="LocationBgMBrush" Color="{StaticResource LocationBgM}" />
+  <Color x:Key="LocationFgG">#06A816</Color>
+  <SolidColorBrush x:Key="LocationFgGBrush" Color="{StaticResource LocationFgG}" />
+  <Color x:Key="LocationBgG">#02770E</Color>
+  <SolidColorBrush x:Key="LocationBgGBrush" Color="{StaticResource LocationBgG}" />
+
+  <!--#endregion-->
+
+  <!--#region Text Colors-->
+
+  <Color x:Key="TextHeader">#1d3883</Color>
+  <SolidColorBrush x:Key="TextHeaderBrush" Color="{StaticResource TextHeader}" />
+  <Color x:Key="TextRegular">#1c1c1c</Color>
+  <SolidColorBrush x:Key="TextRegularBrush" Color="{StaticResource TextRegular}" />
+  <Color x:Key="TextWhite">#fff</Color>
+  <SolidColorBrush x:Key="TextWhiteBrush" Color="{StaticResource TextWhite}" />
+
+  <!--#endregion-->
+
+  <!--#region Font-->
+
+  <FontFamily x:Key="Inter">pack://application:,,,/Fonts/#Inter</FontFamily>
+  <Style x:Key="FontStyle" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource Inter}" />
+  </Style>
+
+  <!--#endregion-->
+
+  <!--  Despise this document being the theme, there are styles below. (Very generic font style definitions directly derived from specification.)  -->
+
+  <!--#region Header Styles-->
+
+  <Style
+    x:Key="Header1"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="24" />
+    <Setter Property="FontWeight" Value="Regular" />
+    <Setter Property="Foreground" Value="{StaticResource TextHeaderBrush}" />
+  </Style>
+
+  <Style
+    x:Key="Header2"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="18" />
+    <Setter Property="FontWeight" Value="Regular" />
+    <Setter Property="Foreground" Value="{StaticResource TextHeaderBrush}" />
+  </Style>
+
+  <Style
+    x:Key="Header3"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="15" />
+    <Setter Property="FontWeight" Value="Regular" />
+    <Setter Property="Foreground" Value="{StaticResource TextHeaderBrush}" />
+  </Style>
+
+  <!--#endregion-->
+
+  <!--#region Paragraph Styles-->
+
+  <Style
+    x:Key="Paragraph1"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="16" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
+  </Style>
+
+  <Style
+    x:Key="Paragraph2"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="16" />
+    <Setter Property="FontWeight" Value="Light" />
+    <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
+  </Style>
+
+  <Style
+    x:Key="Paragraph3"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="FontWeight" Value="Light" />
+    <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
+  </Style>
+
+  <Style
+    x:Key="Paragraph4"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontWeight" Value="Regular" />
+    <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
+  </Style>
+
+  <Style
+    x:Key="Paragraph5"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
+  </Style>
+
+  <!--#endregion-->
+
+  <!--#region Misc. Text Styles-->
+
+  <Style
+    x:Key="HeaderTab"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="15" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
+  </Style>
+
+  <Style
+    x:Key="HeaderTable"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
+  </Style>
+
+  <Style
+    x:Key="ParagraphList"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="Control">
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="FontWeight" Value="Light" />
+    <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
+  </Style>
+
+  <Style
+    x:Key="ParagraphInfo"
+    BasedOn="{StaticResource FontStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontSize" Value="10" />
+    <Setter Property="FontWeight" Value="Regular" />
+    <Setter Property="Foreground" Value="{StaticResource TextRegularBrush}" />
+  </Style>
+
+  <!--#endregion-->
+
+  <!--#region Drawings-->
+
+  <DrawingImage x:Key="ArrowNavRight">
+    <DrawingImage.Drawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen
+            Brush="{StaticResource BlackMgBrush}"
+            DashCap="Flat"
+            Thickness="3" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry>
+            <PathFigure
+              IsClosed="False"
+              IsFilled="False"
+              StartPoint="0,0">
+              <LineSegment Point="10,10" />
+              <LineSegment Point="0,20" />
+            </PathFigure>
+          </PathGeometry>
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <DrawingImage x:Key="ArrowNavRightOff">
+    <DrawingImage.Drawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen
+            Brush="{StaticResource GrayMg4Brush}"
+            DashCap="Flat"
+            Thickness="3" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry>
+            <PathFigure
+              IsClosed="False"
+              IsFilled="False"
+              StartPoint="0,0">
+              <LineSegment Point="10,10" />
+              <LineSegment Point="0,20" />
+            </PathFigure>
+          </PathGeometry>
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <DrawingImage x:Key="ArrowNavLeft">
+    <DrawingImage.Drawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen
+            Brush="{StaticResource BlackMgBrush}"
+            DashCap="Flat"
+            Thickness="3" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry>
+            <PathFigure
+              IsClosed="False"
+              IsFilled="False"
+              StartPoint="20,0">
+              <LineSegment Point="10,10" />
+              <LineSegment Point="20,20" />
+            </PathFigure>
+          </PathGeometry>
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <DrawingImage x:Key="ArrowNavLeftOff">
+    <DrawingImage.Drawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen
+            Brush="{StaticResource GrayMg4Brush}"
+            DashCap="Flat"
+            Thickness="3" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry>
+            <PathFigure
+              IsClosed="False"
+              IsFilled="False"
+              StartPoint="20,0">
+              <LineSegment Point="10,10" />
+              <LineSegment Point="20,20" />
+            </PathFigure>
+          </PathGeometry>
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+
+  <!--#endregion-->
+
+</ResourceDictionary>
