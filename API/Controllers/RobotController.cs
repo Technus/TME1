@@ -1,8 +1,6 @@
-using LanguageExt;
 using LanguageExt.Common;
 using Microsoft.AspNetCore.Mvc;
-using TME1.Abstractions;
-using TME1.Abstractions.DataTransferObjects;
+using System.Runtime.CompilerServices;
 using TME1.Abstractions.Repositories;
 using TME1.Core.DataTransferObjects;
 
@@ -15,30 +13,30 @@ public class RobotController(
   ILogger<RobotController> logger, 
   IRobotRepository<int, RobotDTO> repository) : ControllerBase
 {
+  private static readonly Error _resultWasInvalid = Error.New("Result was invalid");
   private readonly ILogger<RobotController> _logger = logger;
   private readonly IRobotRepository<int, RobotDTO> _repository = repository;
 
   /// <summary>
   /// Endpoint to get all entries from database
   /// </summary>
+  /// <param name="cancellationToken">cancelation for enumeration</param>
   /// <returns></returns>
   [HttpGet]
-  [Route("GetAll")]
-  public async IAsyncEnumerable<RobotDTO> GetAllAsync()
+  [Route("get")]
+  public async IAsyncEnumerable<RobotDTO> GetAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
     if (!ModelState.IsValid)
       yield break;
 
-    await foreach (var result in _repository.GetAllAsync())
+    await foreach (var result in _repository.GetAllAsync(cancellationToken))
     {
-      if (result.TryGetValue(out var dto))
+      switch(result.Case)
       {
-        yield return dto;
-        continue;
+        case RobotDTO dto: yield return dto; continue;
+        case Error error: _logger.LogGetAllAsyncError(error); yield break;
+        default: _logger.LogStateUpdateError(_resultWasInvalid); yield break;
       }
-
-      _logger.LogGetAllAsyncError(result.Case as Error);
-      yield break;
     }
   }
 
@@ -47,18 +45,19 @@ public class RobotController(
   /// </summary>
   /// <returns></returns>
   [HttpGet]
-  [Route("Get/{key}")]
+  [Route("get/{key}")]
   public async Task<ActionResult<RobotDTO>> GetAsync([FromRoute] int key)
   {
     if (!ModelState.IsValid)
       return BadRequest();
 
     var result = await _repository.GetAsync(key);
-    if (result.TryGetValue(out var dto))
-      return Ok(dto);
-
-    _logger.LogStateUpdateError(result.Case as Error);
-    return NotFound();
+    switch(result.Case)
+    {
+      case RobotDTO dto: return Ok(dto);
+      case Error error: _logger.LogStateUpdateError(error); return NotFound();
+      default: _logger.LogStateUpdateError(_resultWasInvalid); return BadRequest();
+    }
   }
 
   /// <summary>
@@ -67,18 +66,19 @@ public class RobotController(
   /// <param name="robotStateUpdate"></param>
   /// <returns></returns>
   [HttpPost]
-  [Route("StateUpdate")]
+  [Route("update/state")]
   public async Task<ActionResult<RobotDTO>> StateUpdateAsync([FromBody] RobotStateUpdateDTO robotStateUpdate)
   {
     if (!ModelState.IsValid)
       return BadRequest();
 
     var result = await _repository.StateUpdateAsync(robotStateUpdate);
-    if(result.TryGetValue(out var dto))
-      return Ok(dto);
-
-    _logger.LogStateUpdateError(result.Case as Error);
-    return NotFound();
+    switch(result.Case)
+    {
+      case RobotDTO dto: return Ok(dto);
+      case Error error: _logger.LogStateUpdateError(error); return NotFound();
+      default: _logger.LogStateUpdateError(_resultWasInvalid); return BadRequest();
+    }
   }
 }
 

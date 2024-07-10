@@ -1,7 +1,6 @@
 ﻿using AutoFixture;
 using TME1.Abstractions.Services;
 using TME1.Core.Services;
-using TME1.Abstractions;
 using TME1.Tests.Core;
 using TME1.Core.DataTransferObjects;
 using Microsoft.Extensions.Logging;
@@ -9,7 +8,7 @@ using TME1.Abstractions.Repositories;
 using LanguageExt.Common;
 using LanguageExt;
 
-namespace TME1.Tests.Services;
+namespace TME1.Tests.Core.Services;
 
 /// <summary>
 /// Actual tests on concrete implementation
@@ -42,7 +41,7 @@ public class TestsRobotStateService : TestsIRobotStateService<RobotStateService,
       if (id == default)
         return Task.FromResult<Fin<RobotDTO>>(Error.New("Default id"));
 
-      if (id % 2 is <= 0 )
+      if (id % 2 is <= 0)
         return Task.FromResult<Fin<RobotDTO>>(Error.New("Not found"));
 
       var dto = Fakers.RobotDto.Generate(Fakers.Populated);

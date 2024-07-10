@@ -158,7 +158,7 @@ public class RobotRepository(
     }
   }
 
-  public async Task<Fin<bool>> SaveChangesAsync(CancellationToken cancellationToken = default)
+  private async Task<Fin<bool>> SaveChangesAsync(CancellationToken cancellationToken = default)
   {
     try
     {

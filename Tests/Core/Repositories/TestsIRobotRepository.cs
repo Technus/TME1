@@ -5,14 +5,13 @@ using LanguageExt.ClassInstances;
 using LanguageExt.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using TME1.Abstractions;
 using TME1.Abstractions.DataTransferObjects;
 using TME1.Abstractions.Repositories;
 using TME1.Core.DataTransferObjects;
 using TME1.Core.Repositories;
 using TME1.Tests.Core;
 
-namespace TME1.Tests.Repositories;
+namespace TME1.Tests.Core.Repositories;
 
 /// <summary>
 /// Actual tests on concrete implementation
@@ -75,14 +74,14 @@ public class TestsRobotRepository : TestsIRobotRepository<RobotRepository, int, 
     => base.DeleteAllAsync_ShouldReturnTrueWhenDeletedAnything(count);
 
   [Test]
-  [TestCase(11,10)]
-  [TestCase(20,10)]
+  [TestCase(11, 10)]
+  [TestCase(20, 10)]
   public new Task UpsertAsync_ShouldFail_WhenKeyIsMissing(int key, int count)
     => base.UpsertAsync_ShouldFail_WhenKeyIsMissing(key, count);
 
   [Test]
-  [TestCase(1,10)]
-  [TestCase(7,10)]
+  [TestCase(1, 10)]
+  [TestCase(7, 10)]
   public new Task UpsertAsync_ShouldUpdate_WhenKeyIsPresent(int key, int count)
     => base.UpsertAsync_ShouldUpdate_WhenKeyIsPresent(key, count);
 
@@ -143,7 +142,7 @@ public abstract class TestsIRobotRepository<TSUT, TKey, TRobot> : TestsBase<TSUT
     var result = await sut.DeleteAllAsync();
     //Assert
     result.TryGetValue(out var deletedAny).Should().BeTrue();
-    deletedAny.Should().Be(count>0, "because should return true if operation was performed on any data");
+    deletedAny.Should().Be(count > 0, "because should return true if operation was performed on any data");
   }
 
   [Test]
