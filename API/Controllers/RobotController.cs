@@ -8,7 +8,7 @@ namespace API.Controllers;
 
 
 [ApiController]
-[Route("[controller]")]
+[Route("robots")]
 public class RobotController(
   ILogger<RobotController> logger, 
   IRobotRepository<int, RobotDTO> repository) : ControllerBase
@@ -18,12 +18,11 @@ public class RobotController(
   private readonly IRobotRepository<int, RobotDTO> _repository = repository;
 
   /// <summary>
-  /// Endpoint to get all entries from database
+  /// Endpoint to get all Robots
   /// </summary>
   /// <param name="cancellationToken">cancelation for enumeration</param>
   /// <returns></returns>
   [HttpGet]
-  [Route("get")]
   public async IAsyncEnumerable<RobotDTO> GetAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
     if (!ModelState.IsValid)
@@ -41,17 +40,17 @@ public class RobotController(
   }
 
   /// <summary>
-  /// Endpoint to get an entry from database
+  /// Endpoint to get a Robot by its id
   /// </summary>
   /// <returns></returns>
   [HttpGet]
-  [Route("get/{key}")]
-  public async Task<ActionResult<RobotDTO>> GetAsync([FromRoute] int key)
+  [Route("{id}")]
+  public async Task<ActionResult<RobotDTO>> GetAsync([FromRoute] int id)
   {
     if (!ModelState.IsValid)
       return BadRequest();
 
-    var result = await _repository.GetAsync(key);
+    var result = await _repository.GetAsync(id);
     switch(result.Case)
     {
       case RobotDTO dto: return Ok(dto);
@@ -61,12 +60,12 @@ public class RobotController(
   }
 
   /// <summary>
-  /// Endpoint to update an entry in database
+  /// Endpoint to update a Robot State
   /// </summary>
   /// <param name="robotStateUpdate"></param>
   /// <returns></returns>
-  [HttpPost]
-  [Route("update/state")]
+  [HttpPatch]
+  [Route("state")]
   public async Task<ActionResult<RobotDTO>> StateUpdateAsync([FromBody] RobotStateUpdateDTO robotStateUpdate)
   {
     if (!ModelState.IsValid)
