@@ -30,14 +30,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
-    <ProjectReference Include="..\API\API.csproj" />
-    <ProjectReference Include="..\App\App.csproj" />
-    <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\UI\UI.csproj" />
+    <ProjectReference Include="..\ServerAPI\ServerAPI.csproj" />
+    <ProjectReference Include="..\ClientCore\ClientCore.csproj" />
+    <ProjectReference Include="..\ServerCore\ServerCore.csproj" />
+    <ProjectReference Include="..\ClientApp\ClientApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="NUnit.Framework" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientCore\" />
   </ItemGroup>
 
 </Project>

@@ -28,7 +28,7 @@ under the name of TME1.
 
 Abstractions - Where Interfaces and Enums are defined
 Tests - Where tests are defined (Could be split to different assemblies, but that was not real requirement)
-Core - Where Entity Framework Core based Database Access Persistence is implemented
-API - Where the ASP.NET Core REST API is implemented
-APP - Where the REST API headless client is implemented
-UI - Where the WPF Graphical interface is implemented
+ServerCore - Where Entity Framework Core based Database Access Persistence is implemented
+ServerAPI - Where the ASP.NET Core REST API is implemented
+ClientCore - Where the REST API headless client is implemented
+ClientApp - Where the WPF Graphical interface is implemented
