@@ -28,7 +28,7 @@
       <!--  Data Templates  -->
 
       <DataTemplate x:Key="RobotTileTemplate" DataType="vm:RobotTileViewModel">
-        <v:RobotTile />
+        <v:RobotTileView />
       </DataTemplate>
 
 

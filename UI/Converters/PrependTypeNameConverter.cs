@@ -19,6 +19,7 @@ public class PrependTypeNameConverter : MarkupExtension, IValueConverter
   /// <param name="parameter"></param>
   /// <param name="culture"></param>
   /// <returns>The string in the form: `{TypeName}_{ToString()}`</returns>
+  /// <remarks>on null values just returns `_`</remarks>
   public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     => $"{value?.GetType()?.Name}_{value?.ToString()}";
 

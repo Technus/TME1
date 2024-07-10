@@ -57,13 +57,13 @@ internal class RobotStatusToImageConverter : MarkupExtension, IValueConverter
   /// <returns>Matching <see cref="BitmapImage"/></returns>
   public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
   {
-    if (value is RobotStatus status)
-    {
-      if(_bitmapDictionary.TryGetValue(status, out var brush))
-        return brush;
-      return _bitmapDictionary[RobotStatus.Error];
-    }
-    return DependencyProperty.UnsetValue;
+    if (value is not RobotStatus status)
+      return DependencyProperty.UnsetValue;
+
+    if (_bitmapDictionary.TryGetValue(status, out var brush))
+      return brush;
+
+    return _bitmapDictionary[RobotStatus.Error];
   }
 
   object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

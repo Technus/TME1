@@ -22,15 +22,14 @@ public class RobotPositionToVisibilityConverter : MarkupExtension, IValueConvert
   /// <remarks>Currently only allows to show the Shield icon when value is <see cref="RobotPosition.Safe"/></remarks>
   public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
   {
-    if(value is RobotPosition position)
+    if(value is not RobotPosition position)
+      return DependencyProperty.UnsetValue;
+
+    return position switch
     {
-      return position switch
-      {
-        RobotPosition.Safe => Visibility.Visible,
-        _ => Visibility.Collapsed,
-      };
-    }
-    return DependencyProperty.UnsetValue;
+      RobotPosition.Safe => Visibility.Visible,
+      _ => Visibility.Collapsed,
+    };
   }
 
   object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

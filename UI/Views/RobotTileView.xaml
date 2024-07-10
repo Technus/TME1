@@ -1,5 +1,5 @@
 ﻿<UserControl
-  x:Class="TME1.UI.Views.RobotTile"
+  x:Class="TME1.UI.Views.RobotTileView"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:conv="clr-namespace:TME1.UI.Converters"

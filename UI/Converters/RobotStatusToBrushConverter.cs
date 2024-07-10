@@ -39,8 +39,7 @@ internal class RobotStatusToBrushConverter : MarkupExtension, IValueConverter
   /// <exception cref="InvalidOperationException">When resource couldn't be found</exception>
   private static void AddBrush(RobotStatus status, string brushName)
   {
-    var brush = Application.Current.Resources[brushName] as Brush;
-    if(brush is null)
+    if(Application.Current.Resources[brushName] is not Brush brush)
       throw new InvalidOperationException($"{nameof(Brush)} resource with name `{brushName}` does not exist");
 
     _brushDictionary[status] = brush;
@@ -56,13 +55,13 @@ internal class RobotStatusToBrushConverter : MarkupExtension, IValueConverter
   /// <returns>Matching <see cref="Brush"/></returns>
   public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
   {
-    if(value is RobotStatus status)
-    {
-      if (_brushDictionary.TryGetValue(status, out var brush))
-        return brush;
-      return _brushDictionary[RobotStatus.Error];
-    }
-    return DependencyProperty.UnsetValue;
+    if (value is not RobotStatus status)
+      return DependencyProperty.UnsetValue;
+
+    if (_brushDictionary.TryGetValue(status, out var brush))
+      return brush;
+
+    return _brushDictionary[RobotStatus.Error];
   }
 
   object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

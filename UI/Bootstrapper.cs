@@ -4,6 +4,7 @@ using Serilog;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using TME1.UI.ViewModels;
+using TME1.UI.Views;
 
 namespace TME1.UI;
 /// <summary>
@@ -49,6 +50,7 @@ public class Bootstrapper : IDisposable
   public void Start(Application application)
   {
     AppHost.Start();
+
     application.MainWindow = AppHost.Services.GetRequiredService<MainWindow>();
     application.MainWindow.DataContext = AppHost.Services.GetRequiredService<MainWindowViewModel>();
     application.MainWindow.Show();

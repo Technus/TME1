@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Windows.Data;
-using System.Windows.Input;
 
 namespace TME1.UI.ViewModels;
 
@@ -38,9 +35,13 @@ public partial class MainWindowViewModel : BaseViewModel
 
   public MainWindowViewModel()
   {
-    AllRobotTiles = [];
+    _robotTiles = [];
+    _filteredRobotTiles = new(_robotTiles);
   }
 
+  /// <summary>
+  /// All loaded robots for selection backing
+  /// </summary>
   public ObservableCollection<RobotTileViewModel> AllRobotTiles
   {
     get => _robotTiles;
@@ -48,8 +49,10 @@ public partial class MainWindowViewModel : BaseViewModel
     {
       if(ReferenceEquals(_robotTiles, value)) 
         return;
+
       _robotTiles = value;
       OnPropertyChanged();
+      ///Also update depdening state
       FilteredRobotTiles = new ListCollectionView(AllRobotTiles)
       {
         Filter = item => item is RobotTileViewModel robot
@@ -58,6 +61,9 @@ public partial class MainWindowViewModel : BaseViewModel
     }
   }
 
+  /// <summary>
+  /// Used to present only the selected robot when a selection is made, otherwise see <see cref="AllRobotTiles"/>
+  /// </summary>
   public ListCollectionView FilteredRobotTiles
   {
     get => _filteredRobotTiles;
@@ -65,11 +71,15 @@ public partial class MainWindowViewModel : BaseViewModel
     {
       if(ReferenceEquals(_filteredRobotTiles, value)) 
         return;
+
       _filteredRobotTiles = value;
       OnPropertyChanged();
     }
   }
 
+  /// <summary>
+  /// Currently selected robot from <see cref="AllRobotTiles"/>
+  /// </summary>
   public RobotTileViewModel? SelectedRobot
   {
     get => _selectedRobot;
@@ -77,13 +87,18 @@ public partial class MainWindowViewModel : BaseViewModel
     {
       if (ReferenceEquals(value, _selectedRobot))
         return;
+
       _selectedRobot = value;
       OnPropertyChanged();
+      ///Also update depdening state
       OnPropertyChanged(nameof(CanUpdateRobot));
       FilteredRobotTiles.Refresh();
     }
   }
 
+  /// <summary>
+  /// Currently selected robot index from <see cref="AllRobotTiles"/>
+  /// </summary>
   public int SelectedRobotIndex
   {
     get => _selectedRobotIndex;
@@ -96,6 +111,10 @@ public partial class MainWindowViewModel : BaseViewModel
     }
   }
 
+  /// <summary>
+  /// Load robots command
+  /// </summary>
+  /// <returns></returns>
   [RelayCommand]
   private async Task LoadRobotsAsync()
   {
@@ -108,16 +127,27 @@ public partial class MainWindowViewModel : BaseViewModel
     OnPropertyChanged(nameof(CanNavigate));
   }
 
+  /// <summary>
+  /// Update robot command
+  /// </summary>
+  /// <returns></returns>
   [RelayCommand]
   private async Task UpdateRobotAsync()
   {
     AllRobotTiles.Clear();
   }
 
+  /// <summary>
+  /// IsEnabled for Update Robot command
+  /// </summary>
   public bool CanUpdateRobot => _selectedRobot is not null;
 
+  /// <summary>
+  /// Navigate `&lt;` command 
+  /// </summary>
+  /// <returns></returns>
   [RelayCommand]
-  private async Task NavigateLeftAsync()
+  private void NavigateLeft()
   {
     if (SelectedRobotIndex is _noSelection)
       SelectedRobotIndex = AllRobotTiles.Count - 1;
@@ -125,8 +155,12 @@ public partial class MainWindowViewModel : BaseViewModel
       SelectedRobotIndex -= 1;
   }
 
+  /// <summary>
+  /// Navigate `&gt;` command
+  /// </summary>
+  /// <returns></returns>
   [RelayCommand]
-  private async Task NavigateRightAsync()
+  private void NavigateRight()
   {
     if (SelectedRobotIndex == AllRobotTiles.Count - 1)
       SelectedRobotIndex = _noSelection;
@@ -134,5 +168,9 @@ public partial class MainWindowViewModel : BaseViewModel
       SelectedRobotIndex += 1;
   }
 
+  /// <summary>
+  /// If navigation/robotSelection should be enabled
+  /// </summary>
+  /// <remarks>Both `&lt;` and `&gt;` as well as Robot Selection IsEnabled status</remarks>
   public bool CanNavigate => AllRobotTiles.Count > 0;
 }

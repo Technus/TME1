@@ -8,6 +8,12 @@ using TME1.Abstractions.Repositories;
 using TME1.Core.DataTransferObjects;
 
 namespace TME1.Core.Repositories;
+/// <summary>
+/// EF Core data access
+/// </summary>
+/// <param name="context"></param>
+/// <param name="logger"></param>
+/// <remarks>Could be replaced by CQRS to further refine it into smaller pieces, but this is relatively simple CRUD app</remarks>
 public class RobotRepository(
   RobotContext context,
   ILogger<RobotRepository> logger) : IRobotRepository<int, RobotDTO>

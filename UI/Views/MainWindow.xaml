@@ -1,5 +1,5 @@
 ﻿<Window
-  x:Class="TME1.UI.ViewModels.MainWindow"
+  x:Class="TME1.UI.Views.MainWindow"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:controls="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
@@ -40,7 +40,8 @@
         IsEnabled="{Binding CanNavigate}"
         ItemsSource="{Binding AllRobotTiles}"
         SelectedIndex="{Binding SelectedRobotIndex}"
-        SelectedItem="{Binding SelectedRobot}" />
+        SelectedItem="{Binding SelectedRobot}"
+        Style="{StaticResource ComboBoxRobotSelector}" />
       <Button
         Command="{Binding NavigateRightCommand}"
         IsEnabled="{Binding CanNavigate}"
@@ -55,7 +56,7 @@
         <Image Source="{StaticResource ExportNotesImg}" Style="{StaticResource PaddedMenuIcon}" />
       </Button>
       <Button Command="{Binding LoadRobotsCommand}" Style="{StaticResource PrimaryButton}">
-        <Image Source="{StaticResource RobotHeadImg}" Style="{StaticResource PaddedMenuIcon}" />
+        <Image Source="{StaticResource RobotHeadWhiteImg}" Style="{StaticResource PaddedMenuIcon}" />
       </Button>
     </StackPanel>
     <!--  Center zone  -->

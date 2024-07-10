@@ -8,6 +8,10 @@ public partial class App : Application
 {
   private Bootstrapper? _bootstrapper;
 
+  /// <summary>
+  /// Bootstraps with: <see cref="Bootstrapper.Start(Application)"/>
+  /// </summary>
+  /// <param name="e"></param>
   protected override void OnStartup(StartupEventArgs e)
   {
     base.OnStartup(e);

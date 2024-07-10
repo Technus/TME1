@@ -17,16 +17,19 @@ public class WrapInParenthesisConverter : MarkupExtension, IValueConverter
   /// <param name="parameter"></param>
   /// <param name="culture"></param>
   /// <returns>string wrapped in parenthesis</returns>
-  /// <remarks>In case of value being empty return string empty</remarks>
+  /// <remarks>In case of value being empty or null return string empty</remarks>
   public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
   {
-    if(value is string text)
-    {
-      if (text.IsEmpty())
-        return string.Empty;
-      return $"({value})";
-    }
-    return DependencyProperty.UnsetValue;
+    if(value is null)
+      return string.Empty;
+
+    if(value is not string text)
+      return DependencyProperty.UnsetValue;
+
+    if (text.IsEmpty())
+      return string.Empty;
+
+    return $"({value})";
   }
 
   object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
