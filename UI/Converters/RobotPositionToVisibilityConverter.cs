@@ -23,7 +23,7 @@ public class RobotPositionToVisibilityConverter : MarkupExtension, IValueConvert
   public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
   {
     if(value is not RobotPosition position)
-      return DependencyProperty.UnsetValue;
+      throw new NotSupportedException($"Cannot convert from {value}");
 
     return position switch
     {

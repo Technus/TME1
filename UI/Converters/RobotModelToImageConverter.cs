@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using JasperFx.CodeGeneration;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -18,11 +19,11 @@ public class RobotModelToImageConverter : MarkupExtension, IValueConverter
   /// <summary>
   /// a list for quick access to bitmap by index
   /// </summary>
-  private static readonly List<(BitmapSource black, BitmapSource white)> _images = [];
+  private static readonly List<BitmapSource> _images = [];
   /// <summary>
   /// a dictionary for quick access to bitmap by name
   /// </summary>
-  private static readonly Dictionary<string, (BitmapSource black, BitmapSource white)> _imageDictionary = [];
+  private static readonly Dictionary<string, BitmapSource> _imageDictionary = [];
 
   /// <summary>
   /// Ideally this mapping would be defined in the database, and maybe automated, but it is good enough
@@ -48,52 +49,8 @@ public class RobotModelToImageConverter : MarkupExtension, IValueConverter
     if (Application.Current.Resources[resourceName] is not BitmapImage bitmap)
       throw new InvalidOperationException($"{nameof(BitmapImage)} resource with name `{resourceName}` does not exist");
 
-    var blackAndWhiteImages = (bitmap, GetWhite(bitmap));
-
-    _images.Add(blackAndWhiteImages);
-    _imageDictionary[modelName] = blackAndWhiteImages;
-  }
-
-  /// <summary>
-  /// Creates new bitmap based on the <paramref name="bitmap"/>
-  /// </summary>
-  /// <param name="bitmap"><see cref="BitmapImage"/> to process</param>
-  /// <returns>Image recolorized to white</returns>
-  private static BitmapSource GetWhite(BitmapImage bitmap)
-  {
-    var writeableBitmap = new WriteableBitmap(new BitmapImage(bitmap.UriSource));
-
-    // Define the new color to use for recoloring
-
-    // Get the pixel data from the original image
-    var width = writeableBitmap.PixelWidth;
-    var height = writeableBitmap.PixelHeight;
-    var stride = width * (writeableBitmap.Format.BitsPerPixel / 8);
-    var pixelData = new byte[height * stride];
-    bitmap.CopyPixels(pixelData, stride, 0);
-
-    // Iterate through each pixel and recolor based on opacity
-    for (var y = 0; y < height; y++)
-    {
-      for (var x = 0; x < width; x++)
-      {
-        var index = (y * stride) + (x * 4);
-
-        // Get the alpha value
-        var alpha = pixelData[index + 3];
-
-        // Set the new color based on the alpha value
-        pixelData[index] = (byte)(_whiteColor.B * alpha / 255);
-        pixelData[index + 1] = (byte)(_whiteColor.G * alpha / 255);
-        pixelData[index + 2] = (byte)(_whiteColor.R * alpha / 255);
-        pixelData[index + 3] = alpha;
-      }
-    }
-
-    // Write the modified pixel data back to the WriteableBitmap
-    writeableBitmap.WritePixels(new Int32Rect(0, 0, width, height), pixelData, stride, 0);
-
-    return writeableBitmap;
+    _images.Add(bitmap);
+    _imageDictionary[modelName] = bitmap;
   }
 
   /// <summary>
@@ -101,7 +58,7 @@ public class RobotModelToImageConverter : MarkupExtension, IValueConverter
   /// Will first lookup for the model name in dictionary of defined bindings
   /// On failure will select a pseudorandom entry based on hash of name
   /// </summary>
-  /// <param name="value">string representing the robot model name</param>
+  /// <param name="value">string representing: the robot model name</param>
   /// <param name="targetType"></param>
   /// <param name="parameter">when provided a boolean true will output white image</param>
   /// <param name="culture"></param>
@@ -109,18 +66,17 @@ public class RobotModelToImageConverter : MarkupExtension, IValueConverter
   public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
   {
     if (value is not string modelName)
-      return DependencyProperty.UnsetValue;
+      throw new NotSupportedException($"Cannot convert from {value}");
 
-    if (!_imageDictionary.TryGetValue(modelName, out (BitmapSource black, BitmapSource white) imageEntry))
+    if (!_imageDictionary.TryGetValue(modelName, out var imageBitmap))
     {
       var modelNameHash = modelName.GetHashCode();
 
       ///<see cref="Math.Abs(int)"/> is a solution for % operator with negative lhs parameter returning negative numbers for index
-      imageEntry = _images[Math.Abs(modelNameHash) % _images.Count];
+      imageBitmap = _images[Math.Abs(modelNameHash) % _images.Count];
     }
 
-    var useWhite = parameter is bool and true;
-    return useWhite ? imageEntry.white : imageEntry.black;
+    return imageBitmap;
   }
 
   object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

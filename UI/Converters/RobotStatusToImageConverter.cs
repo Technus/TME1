@@ -58,7 +58,7 @@ internal class RobotStatusToImageConverter : MarkupExtension, IValueConverter
   public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
   {
     if (value is not RobotStatus status)
-      return DependencyProperty.UnsetValue;
+      throw new NotSupportedException($"Cannot convert from {value}");
 
     if (_bitmapDictionary.TryGetValue(status, out var brush))
       return brush;

@@ -24,7 +24,7 @@ public class WrapInParenthesisConverter : MarkupExtension, IValueConverter
       return string.Empty;
 
     if(value is not string text)
-      return DependencyProperty.UnsetValue;
+      throw new NotSupportedException($"Cannot convert from {value}");
 
     if (text.IsEmpty())
       return string.Empty;

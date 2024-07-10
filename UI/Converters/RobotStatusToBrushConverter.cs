@@ -56,7 +56,7 @@ internal class RobotStatusToBrushConverter : MarkupExtension, IValueConverter
   public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
   {
     if (value is not RobotStatus status)
-      return DependencyProperty.UnsetValue;
+      throw new NotSupportedException($"Cannot convert from {value}");
 
     if (_brushDictionary.TryGetValue(status, out var brush))
       return brush;

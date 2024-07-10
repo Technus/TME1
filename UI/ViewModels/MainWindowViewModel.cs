@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 
@@ -14,6 +14,7 @@ public class MainWindowViewModelDesign : MainWindowViewModel
     for (int i = 0; i < 32; i++)
       AllRobotTiles.Add(new RobotTileViewModel
       {
+        Name = i.ToString(),
         Id = i,
         ChargeLevel = i / 100f,
       });
@@ -30,13 +31,12 @@ public partial class MainWindowViewModel : BaseViewModel
   private int _selectedRobotIndex = _noSelection;
   private RobotTileViewModel? _selectedRobot;
 
-  private ObservableCollection<RobotTileViewModel> _robotTiles;
-  private ListCollectionView _filteredRobotTiles;
+  private ObservableCollection<RobotTileViewModel>? _robotTiles;
+  private ListCollectionView? _filteredRobotTiles;
 
   public MainWindowViewModel()
   {
-    _robotTiles = [];
-    _filteredRobotTiles = new(_robotTiles);
+    AllRobotTiles = [];
   }
 
   /// <summary>
@@ -44,7 +44,7 @@ public partial class MainWindowViewModel : BaseViewModel
   /// </summary>
   public ObservableCollection<RobotTileViewModel> AllRobotTiles
   {
-    get => _robotTiles;
+    get => _robotTiles!;
     set
     {
       if(ReferenceEquals(_robotTiles, value)) 
@@ -66,7 +66,7 @@ public partial class MainWindowViewModel : BaseViewModel
   /// </summary>
   public ListCollectionView FilteredRobotTiles
   {
-    get => _filteredRobotTiles;
+    get => _filteredRobotTiles!;
     set
     {
       if(ReferenceEquals(_filteredRobotTiles, value)) 
@@ -121,6 +121,7 @@ public partial class MainWindowViewModel : BaseViewModel
     for (int i = 0; i < 4; i++)
       AllRobotTiles.Add(new RobotTileViewModel
       {
+        Name = i.ToString(),
         Id = i,
         ChargeLevel = i / 100f,
       });

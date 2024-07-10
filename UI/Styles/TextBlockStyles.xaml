@@ -10,6 +10,15 @@
   </Style>
 
   <Style
+    x:Key="CenteredParagraph4"
+    BasedOn="{StaticResource Paragraph4}"
+    TargetType="TextBlock">
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+  </Style>
+
+  <Style
     x:Key="PaddedParagraph3"
     BasedOn="{StaticResource Paragraph3}"
     TargetType="TextBlock">
