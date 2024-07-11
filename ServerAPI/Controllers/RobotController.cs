@@ -14,7 +14,7 @@ namespace API.Controllers;
 /// <param name="repository">Robot repository</param>
 /// <param name="stateUpdateService">robot state upadte service</param>
 [ApiController]
-[Route("robots")]
+[Route("api/robots")]
 public class RobotController(
   ILogger<RobotController> logger, 
   IRobotRepository<int, RobotDto> repository,
