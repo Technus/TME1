@@ -43,7 +43,7 @@ Which were used before specification update.
 
 # Projects in solution
 
- - Abstractions - Where Interfaces and Enums are defined
+ - Abstractions - Where common Interfaces and Enums are defined
  - TestCommon - Where testing utilities reside
 
  - ServerTests - Where server tests are defined
