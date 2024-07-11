@@ -4,7 +4,6 @@ using Serilog;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using TME1.ClientApp.ViewModels;
-using ExpressMapper;
 using TME1.ClientApp.Views;
 
 namespace TME1.ClientApp;
@@ -35,9 +34,8 @@ public class Bootstrapper : IDisposable
     .CreateDefaultBuilder(args)
     .UseLamar()
     .UseSerilog()
-    .UseMapper()
     .ConfigureServices(services => services
-      .AddSingleton<IMappingServiceProvider, MappingServiceProvider>()
+      .AddSingleton<IMapper, Mapper>()
       .AddSingleton<MainWindow>()
       .AddSingleton<MainWindowViewModel>()
       .AddMediatR(configuration => configuration
