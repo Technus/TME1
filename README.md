@@ -24,11 +24,18 @@ Server=(localdb)\MSSQLLocalDB;Database=EFTestSample;Trusted_Connection=True;Conn
 Otherwise to run the app it expects the connection string to be placed in secure store (or env. variable)
 under the name of TME1.
 
+Minimal testing was developed using TDD practices. By starting to implement with the most naive approach.
+Throwing not implmemented exceptions.
+
 # Projects in solution
 
 Abstractions - Where Interfaces and Enums are defined
-Tests - Where tests are defined (Could be split to different assemblies, but that was not real requirement)
+TestCommon - Where testing utilities reside
+
+ServerTests - Where server tests are defined
 ServerCore - Where Entity Framework Core based Database Access Persistence is implemented
 ServerAPI - Where the ASP.NET Core REST API is implemented
+
+ClientTests - Where client tests are defined
 ClientCore - Where the REST API headless client is implemented
 ClientApp - Where the WPF Graphical interface is implemented
