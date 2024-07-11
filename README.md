@@ -41,8 +41,8 @@ Project was supposed to include pagination of data, which is a rather simple con
 Instead due to lack of time performace to some extent can be expected thanks to `Virtualizing UI controls`.
 Which were used before specification update.
 
-Troughout the solution there is many `Fin-s` but no fish. 
-It is how the result pattern is called in the library. (It also has `Result` but from documentation it is a public class only for internal use...)
+Troughout the solution there are many `Fin-s` but no fish. 
+It is how the result pattern is called in the external library. (It also has `Result` but for internal use only...)
 
 # Projects in solution
 
