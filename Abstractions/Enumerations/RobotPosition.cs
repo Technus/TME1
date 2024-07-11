@@ -2,6 +2,7 @@
 /// <summary>
 /// Represents robot position from the safety standpoint
 /// </summary>
+/// <remarks>Used to ensure consistency between layers</remarks>
 public enum RobotPosition
 {
   /// <summary>

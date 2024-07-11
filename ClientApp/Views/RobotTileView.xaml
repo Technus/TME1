@@ -41,6 +41,7 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="{StaticResource StandardMarginGridLength}" />
     </Grid.RowDefinitions>
+
     <!--  Border  -->
     <Border
       x:Name="mainBorder"
@@ -61,6 +62,7 @@
       Grid.Column="4"
       Fill="{StaticResource GrayMg3Brush}"
       SnapsToDevicePixels="True" />
+
     <!--  Column "1"  -->
     <Image
       Grid.Row="1"
@@ -73,6 +75,7 @@
       Grid.Column="2"
       Style="{StaticResource CenteredParagraph1}"
       Text="{Binding Name}" />
+
     <!--  Column "2"  -->
     <StackPanel
       Grid.Row="1"
@@ -105,6 +108,7 @@
         Visibility="{Binding Position, Converter={conv:RobotPositionToVisibilityConverter}}" />
       <TextBlock Style="{StaticResource PaddedParagraph3}" Text="{lex:Loc {Binding Position, Converter={lex:PrependTypeConverter}}}" />
     </StackPanel>
+
     <!--  Column "3"  -->
     <StackPanel
       Grid.Row="1"

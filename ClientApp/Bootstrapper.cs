@@ -37,20 +37,21 @@ public sealed class Bootstrapper : IDisposable
   private static IHost CreateHost(string[]? args)
   {
     var builder = Host.CreateDefaultBuilder(args);
-    return builder
+    builder
       .UseLamar()
       .UseSerilog()
       .ConfigureServices(serviceCollection => serviceCollection
         .AddSingleton<IHttpClientFactory, HttpClientWithBaseAddressFactory>()
         .AddSingleton<IRobotHttpClient>(serviceProvider => new RobotHttpClient(
           serviceProvider.GetRequiredService<IHttpClientFactory>(),
-          serviceProvider.GetRequiredService<IConfiguration>().GetConnectionString("TME1") ?? "http://localhost:5218"))
+          serviceProvider.GetRequiredService<IConfiguration>().GetConnectionString("TME1") ?? "http://localhost:5218"))//TODO: provide configuration in a controlled manner
         .AddSingleton<IMapper, Mapper>()
         .AddSingleton<RobotStore>()
         .AddSingleton<MainWindow>()
         .AddSingleton<MainViewModel>()
-      )
-      .Build();
+      );
+
+    return builder.Build();
   }
 
   /// <summary>

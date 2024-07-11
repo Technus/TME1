@@ -5,9 +5,11 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using TME1.ClientApp;
+using TME1.ClientCore;
+using TME1.ClientTests;
+using TME1.TestCommon;
 
-namespace TME1.Tests.ClientCore;
+namespace TME1.ClientTests.ClientCore;
 
 public class TestsRobotHttpClient : TestsIRobotHttpClient<RobotHttpClient>
 {
@@ -38,7 +40,7 @@ public abstract class TestsIRobotHttpClient<TSUT> : TestsBase<TSUT> where TSUT :
 
     using var httpMock = fixture.Create<MockHttpMessageHandler>();
     httpMock.When($"{_connectionString}/api/robots")
-      .Respond("application/json", JsonSerializer.Serialize(Fakers.RobotDto.Generate(count,Fakers.Populated)));
+      .Respond("application/json", JsonSerializer.Serialize(Fakers.RobotDto.Generate(count, Fakers.Populated)));
 
     var httpClient = httpMock.ToHttpClient();
     httpClient.BaseAddress = new Uri(_connectionString);
@@ -51,7 +53,7 @@ public abstract class TestsIRobotHttpClient<TSUT> : TestsBase<TSUT> where TSUT :
     //Act
     await foreach (var item in sut.GetAllAsync())
     {
-      if(item.TryGetValue(out var robot))
+      if (item.TryGetValue(out var robot))
         downloadedCount++;
     }
     //Assert
@@ -102,8 +104,8 @@ public abstract class TestsIRobotHttpClient<TSUT> : TestsBase<TSUT> where TSUT :
   }
 
   [Test]
-  [TestCase(true,3)]
-  [TestCase(false,4)]
+  [TestCase(true, 3)]
+  [TestCase(false, 4)]
   public async Task GetAsync_ShouldReturnData_WhenPresent(bool contains, int id)
   {
     //Arrange
@@ -129,8 +131,8 @@ public abstract class TestsIRobotHttpClient<TSUT> : TestsBase<TSUT> where TSUT :
     var result = await sut.GetAsync(id);
     //Assert
     result.TryGetValue(out var robot).Should().Be(contains, "because that is how the api mock was set up");
-    if(contains)
-      robot.ShouldCompare(robotSample,"because the data should be preserved");
+    if (contains)
+      robot.ShouldCompare(robotSample, "because the data should be preserved");
   }
 
   [Test]

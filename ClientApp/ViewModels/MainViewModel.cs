@@ -122,7 +122,7 @@ public partial class MainViewModel : BaseViewModel
   [RelayCommand]
   private async Task LoadRobotsAsync()
   {
-    await _robotStore.GetAllCommandAsync();
+    await _robotStore.GetAllAsyncCommand();
     AllRobotTiles = _robotStore.RobotTiles;
     SelectedRobot = default;
 
@@ -139,7 +139,7 @@ public partial class MainViewModel : BaseViewModel
     if(SelectedRobot is not RobotTileViewModel robot)
       return;
 
-    await _robotStore.StateUpdateCommandAsync(robot!.Id);
+    await _robotStore.StateUpdateAsyncCommand(robot!.Id);
     AllRobotTiles = _robotStore.RobotTiles;
     SelectedRobot = _robotStore.LastUpdatedRobotTile;
   }

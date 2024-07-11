@@ -22,6 +22,10 @@ public sealed partial class App : Application, IDisposable
     await bootstrapper.StartAsync(this);
   }
 
+  /// <summary>
+  /// Exits with: <see cref="Bootstrapper.StopAsync(Application)"/>
+  /// </summary>
+  /// <param name="e"></param>
   protected override async void OnExit(ExitEventArgs e)
   {
     base.OnExit(e);

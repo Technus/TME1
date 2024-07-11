@@ -2,7 +2,7 @@
 using TME1.Abstractions.Enumerations;
 using TME1.ClientCore.Models;
 
-namespace TME1.Tests;
+namespace TME1.ClientTests;
 /// <summary>
 /// Mock Data generators
 /// </summary>

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using TME1.Abstractions.DataTransferObjects;
-using TME1.Abstractions.Repositories;
 using TME1.ServerCore;
 using TME1.ServerCore.DataTransferObjects;
+using TME1.ServerCore.Repositories;
 
 namespace TME1.Core.Repositories;
 /// <summary>
@@ -22,6 +22,7 @@ public class RobotRepository(
   private readonly RobotContext _context = context;
   private readonly ILogger<RobotRepository> _logger = logger;
 
+  /// <inheritdoc/>
   public async Task<Fin<bool>> DeleteAllAsync(CancellationToken cancellationToken = default)
   {
     try
@@ -37,6 +38,7 @@ public class RobotRepository(
     }
   }
 
+  /// <inheritdoc/>
   public async Task<Fin<bool>> DeleteAsync(int key, CancellationToken cancellationToken = default)
   {
     try
@@ -52,12 +54,14 @@ public class RobotRepository(
     }
   }
 
+  /// <inheritdoc/>
   public async IAsyncEnumerable<Fin<RobotDto>> GetAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
     await foreach (var robot in _context.Robots.AsNoTracking().AsAsyncEnumerable())
       yield return robot;
   }
 
+  /// <inheritdoc/>
   public async Task<Fin<RobotDto>> GetAsync(int key, CancellationToken cancellationToken = default)
   {
     try
@@ -71,21 +75,22 @@ public class RobotRepository(
       return error;
     }
   }
-  
+
+  /// <inheritdoc/>
   public async Task<Fin<RobotDto>> StateUpdateAsync(IRobotStateUpdate<int> stateUpdate, CancellationToken cancellationToken = default)
   {
     try
     {
-      var where = _context.Robots.AsNoTracking().Where(x => x.Id == stateUpdate.Id);
+      var whereIdMatches = _context.Robots.AsNoTracking().Where(x => x.Id == stateUpdate.Id);
 
-      var countUpdated = await where.ExecuteUpdateAsync(setters => setters
+      var countUpdated = await whereIdMatches.ExecuteUpdateAsync(setters => setters
         .SetProperty(x => x.Status, stateUpdate.Status)
         .SetProperty(x => x.StatusMessage, x => stateUpdate.StatusMessage ?? x.StatusMessage)
         .SetProperty(x => x.ChargeLevel, x => stateUpdate.ChargeLevel)
         , cancellationToken);
 
       if (countUpdated is 1)
-        return await where.SingleAsync(cancellationToken);
+        return await whereIdMatches.SingleAsync(cancellationToken);
 
       var error = Error.New(stateUpdate.Id, "Failed to update");
       _logger.LogSetError(error);
@@ -99,26 +104,38 @@ public class RobotRepository(
     }
   }
 
+  /// <inheritdoc/>
   public async Task<Fin<RobotDto>> AddOrUpdateAsync(RobotDto robot, CancellationToken cancellationToken = default)
   {
     try
     {
       if(robot.Id == default)
       {
-        var entry = await _context.Robots.AddAsync(robot, cancellationToken);
+        var newEntry = await _context.Robots.AddAsync(robot, cancellationToken);
+        if (newEntry is null)
+        {
+          var error = Error.New(robot.Id, "Failed to insert");
+          _logger.LogSetError(error);
+          return error;
+        }
+
         var saveResult = await SaveChangesAsync(cancellationToken);
-        entry.State = EntityState.Detached;
+        newEntry.State = EntityState.Detached;
 
         if (saveResult.IsFail)
-          return saveResult.Case as Error;
+        {
+          var error = saveResult.Case as Error;
+          _logger.LogSetError(error!);
+          return error;
+        }
 
-        return entry.Entity;
+        return newEntry.Entity;
       }
       else
       {
-        var where = _context.Robots.AsNoTracking().Where(x => x.Id == robot.Id);
+        var whereIdMatches = _context.Robots.AsNoTracking().Where(x => x.Id == robot.Id);
 
-        var countUpdated = await where.ExecuteUpdateAsync(setters => setters
+        var countUpdated = await whereIdMatches.ExecuteUpdateAsync(setters => setters
           .SetProperty(x => x.Name, robot.Name)
           .SetProperty(x => x.Model, robot.Model)
           .SetProperty(x => x.ChargeLevel, robot.ChargeLevel)
@@ -130,7 +147,7 @@ public class RobotRepository(
           , cancellationToken);
 
         if (countUpdated is 1)
-          return await where.SingleAsync(cancellationToken);
+          return await whereIdMatches.SingleAsync(cancellationToken);
 
         var error = Error.New(robot.Id, "Failed to update");
         _logger.LogSetError(error);

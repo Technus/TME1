@@ -2,7 +2,7 @@
 using AutoFixture.AutoNSubstitute;
 using NUnit.Framework;
 
-namespace TME1.Tests;
+namespace TME1.TestCommon;
 /// <summary>
 /// Base test class to ensure some common testing practices
 /// </summary>
@@ -40,6 +40,9 @@ public abstract class TestsBase<TSUT>
       .BeOfType<TSUT>("because testing needs to be done on the defined type and not an inheritor");
   }
 
+  /// <summary>
+  /// More of a convention for tests that actual test
+  /// </summary>
   [Test]
   public void CreateSUT_ShouldAlwaysMakeNewInstance()
   {

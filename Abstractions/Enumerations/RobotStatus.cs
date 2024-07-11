@@ -2,6 +2,7 @@
 /// <summary>
 /// Represents robot status from the task/operability standpoint
 /// </summary>
+/// <remarks>Used to ensure consistency between layers</remarks>
 public enum RobotStatus
 {
   /// <summary>

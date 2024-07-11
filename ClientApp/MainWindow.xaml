@@ -15,5 +15,6 @@
   lex:ResxLocalizationProvider.DefaultAssembly="Robot Status Browser"
   lex:ResxLocalizationProvider.DefaultDictionary="Resources"
   mc:Ignorable="d">
+  <!--  Just the content wrapper  -->
   <ContentPresenter Content="{Binding}" />
 </Window>

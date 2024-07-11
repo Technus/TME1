@@ -11,6 +11,7 @@ public partial class Mapper : IMapper
 {
   ///<inheritdoc/>
   public partial RobotTileViewModel MapToViewModel(RobotModel model);
+
   ///<inheritdoc/>
   public partial RobotModel MapToModel(RobotTileViewModel viewModel);
 }

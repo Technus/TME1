@@ -1,11 +1,12 @@
 ﻿using AutoFixture;
-using TME1.Abstractions.Services;
 using TME1.Core.Services;
 using Microsoft.Extensions.Logging;
 using TME1.Abstractions.DataTransferObjects;
 using TME1.ServerCore.DataTransferObjects;
+using TME1.ServerCore.Services;
+using TME1.TestCommon;
 
-namespace TME1.Tests.ServerCore.Services;
+namespace TME1.ServerTests.ServerCore.Services;
 
 /// <summary>
 /// Actual tests on concrete implementation

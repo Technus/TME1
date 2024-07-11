@@ -16,7 +16,6 @@ public abstract class BaseViewModel : INotifyPropertyChanged, INotifyPropertyCha
   /// Occurs when a property value was changed.
   /// </summary>
   public event PropertyChangedEventHandler? PropertyChanged;
-
   /// <summary>
   /// Occurs when a property value is about to change.
   /// </summary>

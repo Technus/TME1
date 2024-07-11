@@ -30,9 +30,11 @@
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="auto" />
     </Grid.ColumnDefinitions>
-    <!--  Top bar  -->
+
+    <!--  Top bar left side  -->
     <StackPanel Style="{StaticResource ToLeft}">
       <TextBlock Style="{StaticResource PaddedParagraph3}" Text="{lex:Loc Robot}" />
+      <!--  It seems that wrapping the 3 controls below in a navigable by buttons combobox makes sense  -->
       <Button
         Command="{Binding NavigateLeftCommand}"
         IsEnabled="{Binding CanNavigate}"
@@ -79,6 +81,7 @@
         Style="{StaticResource NavButtonRight}" />
     </StackPanel>
 
+    <!--  Top bar right side  -->
     <StackPanel Grid.Column="2" Style="{StaticResource ToRight}">
       <Button
         Command="{Binding UpdateRobotCommand}"
@@ -90,8 +93,8 @@
         <Image Source="{StaticResource RobotHeadWhiteImg}" Style="{StaticResource PaddedMenuIcon}" />
       </Button>
     </StackPanel>
-    <!--  Center zone  -->
 
+    <!--  Center zone  -->
     <virtualizing:GridView
       Grid.Row="2"
       Grid.ColumnSpan="{StaticResource SpanAll}"

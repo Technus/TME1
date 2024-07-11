@@ -2,9 +2,9 @@ using LanguageExt.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
 using TME1.Abstractions.DataTransferObjects;
-using TME1.Abstractions.Repositories;
-using TME1.Abstractions.Services;
 using TME1.ServerCore.DataTransferObjects;
+using TME1.ServerCore.Repositories;
+using TME1.ServerCore.Services;
 
 namespace API.Controllers;
 /// <summary>
@@ -43,13 +43,13 @@ public class RobotController(
       {
         case RobotDto dto: yield return dto; continue;
         case Error error: _logger.LogGetAllAsyncError(error); yield break;
-        default: _logger.LogStateUpdateError(_errorInvalidResult); yield break;
+        default: _logger.LogGetAllAsyncError(_errorInvalidResult); yield break;
       }
     }
   }
 
   /// <summary>
-  /// Endpoint to get a Robot by its id
+  /// Endpoint to get a Robot by its <p
   /// </summary>
   /// <returns></returns>
   [HttpGet]
@@ -63,8 +63,8 @@ public class RobotController(
     switch(result.Case)
     {
       case RobotDto dto: return Ok(dto);
-      case Error error: _logger.LogStateUpdateError(error); return NotFound();
-      default: _logger.LogStateUpdateError(_errorInvalidResult); return BadRequest();
+      case Error error: _logger.LogGetAsyncError(error); return NotFound();
+      default: _logger.LogGetAsyncError(_errorInvalidResult); return BadRequest();
     }
   }
 
@@ -122,13 +122,39 @@ public class RobotController(
   }
 }
 
+/// <summary>
+/// Logging helper
+/// </summary>
 public static partial class RobotControllerLogExtensions
 {
+  /// <summary>
+  /// Error logging for <see cref="RobotController.GetAllAsync(CancellationToken)"/>
+  /// </summary>
+  /// <param name="logger"></param>
+  /// <param name="error"></param>
   [LoggerMessage(
     Level = LogLevel.Error,
     Message = "Could not load robot/s: `{error}`")]
   public static partial void LogGetAllAsyncError(this ILogger logger, Error error);
 
+  /// <summary>
+  /// Error logging for <see cref="RobotController.GetAsync(int)"/>
+  /// </summary>
+  /// <param name="logger"></param>
+  /// <param name="error"></param>
+  [LoggerMessage(
+    Level = LogLevel.Error,
+    Message = "Could not load robot: `{error}`")]
+  public static partial void LogGetAsyncError(this ILogger logger, Error error);
+
+  /// <summary>
+  /// Error logging for:<br/>
+  /// <see cref="RobotController.StateUpdateAsyncCore(IRobotStateUpdate{int})"/><br/>
+  /// <see cref="RobotController.StateUpdateAsync(int)"/><br/>
+  /// <see cref="RobotController.StateUpdateAsync(RobotStateUpdateDto)"/>
+  /// </summary>
+  /// <param name="logger"></param>
+  /// <param name="error"></param>
   [LoggerMessage(
     Level = LogLevel.Error,
     Message = "Could not update state: `{error}`")]

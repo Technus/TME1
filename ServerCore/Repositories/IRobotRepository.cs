@@ -1,7 +1,7 @@
 ﻿using LanguageExt;
 using TME1.Abstractions.DataTransferObjects;
 
-namespace TME1.Abstractions.Repositories;
+namespace TME1.ServerCore.Repositories;
 /// <summary>
 /// For abstracting robot DB data context manipulation
 /// </summary>

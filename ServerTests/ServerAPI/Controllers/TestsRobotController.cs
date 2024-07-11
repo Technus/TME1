@@ -5,11 +5,12 @@ using LanguageExt;
 using LanguageExt.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using TME1.Abstractions.Repositories;
-using TME1.Abstractions.Services;
 using TME1.ServerCore.DataTransferObjects;
+using TME1.ServerCore.Repositories;
+using TME1.ServerCore.Services;
+using TME1.TestCommon;
 
-namespace TME1.Tests.ServerAPI.Controllers;
+namespace TME1.ServerTests.ServerAPI.Controllers;
 
 /// <summary>
 /// Actual tests on concrete implementation, does not really test the endpoints but the class logic.
@@ -32,18 +33,18 @@ public class RobotControllerTests : TestsBase<RobotController>
   [TestCase(0)]
   [TestCase(1)]
   [TestCase(10)]
-  public async Task GetAllAsync_ShouldReturnAllElements(int count)
+  public async Task GetAllAsync_ShouldReturnAllElements(int storedCount)
   {
     //Arrange
     var fixture = CreateFixture();
     var sut = CreateSUT(fixture);
 
-    var listOfSamples = new List<Fin<RobotDto>>();
-    for (var i = 0; i < count; i++)
-      listOfSamples.Add(Fakers.RobotDto.Generate("populated"));
+    var dataSamples = new List<Fin<RobotDto>>();
+    for (var i = 0; i < storedCount; i++)
+      dataSamples.Add(Fakers.RobotDto.Generate("populated"));
 
-    var source = fixture.Create<IRobotRepository<int, RobotDto>>();
-    source.GetAllAsync(Arg.Any<CancellationToken>()).Returns(listOfSamples.ToAsyncEnumerable());
+    var mockRepository = fixture.Create<IRobotRepository<int, RobotDto>>();
+    mockRepository.GetAllAsync(Arg.Any<CancellationToken>()).Returns(dataSamples.ToAsyncEnumerable());
     var recievedCount = 0;
     //Act
     await foreach (var item in sut.GetAllAsync())
@@ -52,34 +53,34 @@ public class RobotControllerTests : TestsBase<RobotController>
       item.Should().NotBeNull();
     }
     //Assert
-    recievedCount.Should().Be(count, "because it should return all elements");
+    recievedCount.Should().Be(storedCount, "because it should return all elements");
     //TODO: assert correct data was provided
   }
 
   [Test]
   [TestCase(true, 3)]
   [TestCase(false, 4)]
-  public async Task GetAsync_ShouldReturnSelectedElement_OrReturnNotFound(bool contains, int id)
+  public async Task GetAsync_ShouldReturnSelectedElement_OrReturnNotFound(bool shouldContain, int id)
   {
     //Arrange
     var fixture = CreateFixture();
     var sut = CreateSUT(fixture);
 
-    var sample = Fakers.RobotDto.Generate("populated");
-    sample.Id = id;
+    var dataSamples = Fakers.RobotDto.Generate("populated");
+    dataSamples.Id = id;
 
-    var source = fixture.Create<IRobotRepository<int, RobotDto>>();
-    if (contains)
-      source.GetAsync(id, Arg.Any<CancellationToken>()).Returns(sample);
+    var mockRepository = fixture.Create<IRobotRepository<int, RobotDto>>();
+    if (shouldContain)
+      mockRepository.GetAsync(id, Arg.Any<CancellationToken>()).Returns(dataSamples);
     else
-      source.GetAsync(id, Arg.Any<CancellationToken>()).Returns(Error.New("Missing"));
+      mockRepository.GetAsync(id, Arg.Any<CancellationToken>()).Returns(Error.New("Missing"));
     //Act
     var result = await sut.GetAsync(id);
     //Assert
-    if (contains)
+    if (shouldContain)
     {
       result.Result.Should().BeOfType<OkObjectResult>()
-        .Which.Value.ShouldCompare(sample, "because it should be the same content");
+        .Which.Value.ShouldCompare(dataSamples, "because it should be the same content");
     }
     else
     {
@@ -90,29 +91,29 @@ public class RobotControllerTests : TestsBase<RobotController>
   [Test]
   [TestCase(true, 3)]
   [TestCase(false, 4)]
-  public async Task StateUpdateAsync_ByDto_ShouldUpdateSelectedElement_OrReturnNotFound(bool contains, int id)
+  public async Task StateUpdateAsync_ByDto_ShouldUpdateSelectedElement_OrReturnNotFound(bool shouldContain, int idToUpdate)
   {
     //Arrange
     var fixture = CreateFixture();
     var sut = CreateSUT(fixture);
 
-    var sample = Fakers.RobotDto.Generate("populated");
-    sample.Id = id;
-    var update = Fakers.RobotStateUpdateDTO.Generate("populated");
-    update.Id = id;
+    var dataSample = Fakers.RobotDto.Generate("populated");
+    dataSample.Id = idToUpdate;
+    var updateSample = Fakers.RobotStateUpdateDTO.Generate("populated");
+    updateSample.Id = idToUpdate;
 
-    var source = fixture.Create<IRobotRepository<int, RobotDto>>();
-    if (contains)
-      source.StateUpdateAsync(update, Arg.Any<CancellationToken>()).Returns(sample);//Not very true in real life but works in testing
+    var mockRepository = fixture.Create<IRobotRepository<int, RobotDto>>();
+    if (shouldContain)
+      mockRepository.StateUpdateAsync(updateSample, Arg.Any<CancellationToken>()).Returns(dataSample);//Not very true in real life but works in testing
     else
-      source.StateUpdateAsync(update, Arg.Any<CancellationToken>()).Returns(Error.New("Missing"));
+      mockRepository.StateUpdateAsync(updateSample, Arg.Any<CancellationToken>()).Returns(Error.New("Missing"));
     //Act
-    var result = await sut.StateUpdateAsync(update);
+    var result = await sut.StateUpdateAsync(updateSample);
     //Assert
-    if (contains)
+    if (shouldContain)
     {
       result.Result.Should().BeOfType<OkObjectResult>()
-        .Which.Value.ShouldCompare(sample, "because it should be the same content");
+        .Which.Value.ShouldCompare(dataSample, "because it should be the same content");
     }
     else
     {
@@ -123,38 +124,38 @@ public class RobotControllerTests : TestsBase<RobotController>
   [Test]
   [TestCase(true, 3)]
   [TestCase(false, 4)]
-  public async Task StateUpdateAsync_ById_ShouldUpdateSelectedElement_OrReturnNotFound(bool contains, int idToUpdate)
+  public async Task StateUpdateAsync_ById_ShouldUpdateSelectedElement_OrReturnNotFound(bool shouldContain, int idToUpdate)
   {
     //Arrange
     var fixture = CreateFixture();
     var sut = CreateSUT(fixture);
 
-    var sample = Fakers.RobotDto.Generate("populated");
-    sample.Id = idToUpdate;
-    var update = Fakers.RobotStateUpdateDTO.Generate("populated");
-    update.Id = idToUpdate;
+    var dataSample = Fakers.RobotDto.Generate("populated");
+    dataSample.Id = idToUpdate;
+    var updateSample = Fakers.RobotStateUpdateDTO.Generate("populated");
+    updateSample.Id = idToUpdate;
 
-    var stateUpdateService = fixture.Create<IRobotStateService<int>>();
-    var source = fixture.Create<IRobotRepository<int, RobotDto>>();
+    var mockStateUpdateService = fixture.Create<IRobotStateService<int>>();
+    var mockRepository = fixture.Create<IRobotRepository<int, RobotDto>>();
 
-    if (contains)
+    if (shouldContain)
     {
-      stateUpdateService.UpdateAsync(sample, Arg.Any<CancellationToken>()).Returns(update);
-      source.GetAsync(idToUpdate, Arg.Any<CancellationToken>()).Returns(sample);
-      source.StateUpdateAsync(update, Arg.Any<CancellationToken>()).Returns(sample);//Not very true in real life but works in testing
+      mockStateUpdateService.UpdateAsync(dataSample, Arg.Any<CancellationToken>()).Returns(updateSample);
+      mockRepository.GetAsync(idToUpdate, Arg.Any<CancellationToken>()).Returns(dataSample);
+      mockRepository.StateUpdateAsync(updateSample, Arg.Any<CancellationToken>()).Returns(dataSample);//Not very true in real life but works in testing
     }
     else
     {
-      source.GetAsync(idToUpdate, Arg.Any<CancellationToken>()).Returns(Error.New("Missing"));
-      source.StateUpdateAsync(update, Arg.Any<CancellationToken>()).Returns(Error.New("Missing"));
+      mockRepository.GetAsync(idToUpdate, Arg.Any<CancellationToken>()).Returns(Error.New("Missing"));
+      mockRepository.StateUpdateAsync(updateSample, Arg.Any<CancellationToken>()).Returns(Error.New("Missing"));
     }
     //Act
     var result = await sut.StateUpdateAsync(idToUpdate);
     //Assert
-    if (contains)
+    if (shouldContain)
     {
       result.Result.Should().BeOfType<OkObjectResult>()
-        .Which.Value.ShouldCompare(sample, "because it should be the same content");
+        .Which.Value.ShouldCompare(dataSample, "because it should be the same content");
     }
     else
     {

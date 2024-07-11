@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using TME1.Abstractions.Repositories;
-using TME1.Abstractions.Services;
 using TME1.Core.Repositories;
 using TME1.Core.Services;
+using TME1.ServerAPI;
 using TME1.ServerCore;
 using TME1.ServerCore.DataTransferObjects;
-using TME1.Tests;
+using TME1.ServerCore.Repositories;
+using TME1.ServerCore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,8 +58,6 @@ if (app.Environment.IsDevelopment())
   var context = app.Services.GetRequiredService<RobotContext>();
 
   //Ensure created and fill with random data if empty
-
-  //await context.Database.EnsureDeletedAsync();
   await context.Database.EnsureCreatedAsync();
   if(!await context.Robots.AnyAsync())
   {

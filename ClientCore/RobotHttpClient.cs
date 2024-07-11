@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using TME1.ClientCore.Models;
 
-namespace TME1.ClientApp;
+namespace TME1.ClientCore;
 
 /// <summary>
 /// Http client wrapper for Robot context
@@ -14,11 +14,11 @@ namespace TME1.ClientApp;
 /// <param name="connectionString">conection string to use while creating http client</param>
 public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connectionString) : IRobotHttpClient
 {
-  private const string _ndJson = "application/x-ndjson";
-  private const string _json = "application/json";
-  private static readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
+  private const string _ndJsonMediaType = "application/x-ndjson";
+  private const string _jsonMediaType = "application/json";
+  private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
   {
-    PropertyNameCaseInsensitive = true
+    PropertyNameCaseInsensitive = true, ///since json names are not CamelCase
   };
 
   private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
@@ -28,8 +28,8 @@ public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connec
   public async IAsyncEnumerable<Fin<RobotModel>> GetAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
     using var httpClient = _httpClientFactory.CreateClient(_connectionString);
-    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_ndJson));
-    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_json));
+    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_ndJsonMediaType));
+    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_jsonMediaType));
 
     var result = await httpClient.GetAsync("/api/robots", cancellationToken);
     if (!result.IsSuccessStatusCode)
@@ -42,7 +42,7 @@ public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connec
     var mediaType = content.Headers.ContentType?.MediaType;
     switch (mediaType)
     {
-      case _json:
+      case _jsonMediaType:
         var jsonContent = await content.ReadAsAsync<IEnumerable<RobotModel>>(cancellationToken);
         foreach (var item in jsonContent)
         {
@@ -55,7 +55,7 @@ public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connec
         }
         yield break;
 
-      case _ndJson:
+      case _ndJsonMediaType:
         var ndjsonContent = ReadFromNdjsonAsync<RobotModel>(content, cancellationToken);
         await foreach (var item in ndjsonContent)
         {
@@ -76,7 +76,7 @@ public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connec
   public async Task<Fin<RobotModel>> GetAsync(int id, CancellationToken cancellationToken = default)
   {
     using var httpClient = _httpClientFactory.CreateClient(_connectionString);
-    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_json));
+    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_jsonMediaType));
 
     var result = await httpClient.GetAsync($"/api/robots/{id}", cancellationToken);
     if (!result.IsSuccessStatusCode)
@@ -93,7 +93,7 @@ public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connec
   public async Task<Fin<RobotModel>> StateUpdateAsync(int id, CancellationToken cancellationToken = default)
   {
     using var httpClient = _httpClientFactory.CreateClient(_connectionString);
-    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_json));
+    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_jsonMediaType));
 
     var result = await httpClient.GetAsync($"/api/robots/with-new-state/{id}", cancellationToken);
     if (!result.IsSuccessStatusCode)
@@ -106,7 +106,14 @@ public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connec
     return item;
   }
 
-  private static async IAsyncEnumerable<TValue?> ReadFromNdjsonAsync<TValue>(HttpContent content, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+  /// <summary>
+  /// Reads new line delimited json stream from <paramref name="content"/>
+  /// </summary>
+  /// <typeparam name="TValue"></typeparam>
+  /// <param name="content"></param>
+  /// <param name="cancellationToken"></param>
+  /// <returns></returns>
+  private static async IAsyncEnumerable<TValue> ReadFromNdjsonAsync<TValue>(HttpContent content, [EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
     using var contentStream = await content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
     using var contentStreamReader = new StreamReader(contentStream);
@@ -118,7 +125,12 @@ public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connec
       if (line is null)
         continue;
 
-      yield return JsonSerializer.Deserialize<TValue>(line, _jsonSerializerOptions);
+      var item = JsonSerializer.Deserialize<TValue>(line, _jsonSerializerOptions);
+
+      if (item is null)
+        continue;
+
+      yield return item;
     }
   }
 }
