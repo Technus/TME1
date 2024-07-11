@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using TME1.Abstractions.Repositories;
 using TME1.Abstractions.Services;
 using TME1.ServerCore.DataTransferObjects;
-using TME1.Tests.ServerCore;
 
 namespace TME1.Tests.ServerAPI.Controllers;
 

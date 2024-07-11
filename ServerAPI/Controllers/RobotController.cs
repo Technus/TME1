@@ -30,7 +30,7 @@ public class RobotController(
   /// Endpoint to get all Robots
   /// </summary>
   /// <param name="cancellationToken">cancelation for enumeration</param>
-  /// <returns></returns>
+  /// <returns>json response or ndjson stream depending on request header</returns>
   [HttpGet]
   public async IAsyncEnumerable<RobotDto> GetAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
@@ -70,9 +70,6 @@ public class RobotController(
 
   private async Task<ActionResult<RobotDto>> StateUpdateAsyncCore(IRobotStateUpdate<int> robotStateUpdate)
   {
-    if (!ModelState.IsValid)
-      return BadRequest();
-
     var result = await _repository.StateUpdateAsync(robotStateUpdate);
     switch (result.Case)
     {
@@ -88,8 +85,13 @@ public class RobotController(
   /// <param name="robotStateUpdate"></param>
   /// <returns>updated state</returns>
   [HttpPost]
-  public Task<ActionResult<RobotDto>> StateUpdateAsync([FromBody] RobotStateUpdateDto robotStateUpdate)
-    => StateUpdateAsyncCore(robotStateUpdate);
+  public async Task<ActionResult<RobotDto>> StateUpdateAsync([FromBody] RobotStateUpdateDto robotStateUpdate)
+  {
+    if (!ModelState.IsValid)
+      return BadRequest();
+
+    return await StateUpdateAsyncCore(robotStateUpdate);
+  }
 
   /// <summary>
   /// Endpoint to update a Robot State with serverside generated data

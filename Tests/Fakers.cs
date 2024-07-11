@@ -2,7 +2,7 @@
 using TME1.Abstractions.Enumerations;
 using TME1.ServerCore.DataTransferObjects;
 
-namespace TME1.Tests.ServerCore;
+namespace TME1.Tests;
 /// <summary>
 /// Mock Data generators
 /// </summary>
