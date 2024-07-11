@@ -11,8 +11,8 @@ using TME1.ServerCore;
 namespace TME1.ServerCore.Migrations
 {
     [DbContext(typeof(RobotContext))]
-    [Migration("20240711181149_Initial")]
-    partial class Initial
+    [Migration("20240711185731_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

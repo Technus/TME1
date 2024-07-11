@@ -13,6 +13,8 @@ public class RobotStore(IRobotHttpClient httpClient, IMapper mapper)
 
   public ObservableCollection<RobotTileViewModel> RobotTiles { get; private set; } = [];
 
+  public RobotTileViewModel? LastUpdatedRobotTile { get; private set; }
+
   public async Task GetAllCommandAsync(CancellationToken cancellationToken = default)
   {
 	await foreach (var robot in _httpClient.GetAllAsync(cancellationToken))
@@ -31,7 +33,11 @@ public class RobotStore(IRobotHttpClient httpClient, IMapper mapper)
 	var result = await _httpClient.StateUpdateAsync(id, cancellationToken);
 	switch(result.Case)
     {
-      case RobotModel model: _robotLookup[model.Id] = _mapper.MapToViewModel(model); break;
+      case RobotModel model:
+        var viewModel = _mapper.MapToViewModel(model);
+        _robotLookup[model.Id] = viewModel;
+        LastUpdatedRobotTile = viewModel;
+        break;
       default: return;
     }
 	RobotTiles = [.._robotLookup.Values];

@@ -16,6 +16,10 @@ public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connec
 {
   private const string _ndJson = "application/x-ndjson";
   private const string _json = "application/json";
+  private static readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
+  {
+    PropertyNameCaseInsensitive = true
+  };
 
   private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
   private readonly string _connectionString = connectionString;
@@ -114,7 +118,7 @@ public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connec
       if (line is null)
         continue;
 
-      yield return JsonSerializer.Deserialize<TValue>(line);
+      yield return JsonSerializer.Deserialize<TValue>(line, _jsonSerializerOptions);
     }
   }
 }

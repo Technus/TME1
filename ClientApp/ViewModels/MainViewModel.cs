@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using TME1.Abstractions.DataTransferObjects;
 using TME1.ClientApp.Stores;
 
 namespace TME1.ClientApp.ViewModels;
@@ -123,6 +124,7 @@ public partial class MainViewModel : BaseViewModel
   {
     await _robotStore.GetAllCommandAsync();
     AllRobotTiles = _robotStore.RobotTiles;
+    SelectedRobot = default;
 
     OnPropertyChanged(nameof(CanNavigate));
   }
@@ -139,6 +141,7 @@ public partial class MainViewModel : BaseViewModel
 
     await _robotStore.StateUpdateCommandAsync(robot!.Id);
     AllRobotTiles = _robotStore.RobotTiles;
+    SelectedRobot = _robotStore.LastUpdatedRobotTile;
   }
 
   /// <summary>

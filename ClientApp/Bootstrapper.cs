@@ -44,7 +44,7 @@ public sealed class Bootstrapper : IDisposable
         .AddSingleton<IHttpClientFactory, HttpClientWithBaseAddressFactory>()
         .AddSingleton<IRobotHttpClient>(serviceProvider => new RobotHttpClient(
           serviceProvider.GetRequiredService<IHttpClientFactory>(),
-          serviceProvider.GetRequiredService<IConfiguration>()["TME1"] ?? "http://localhost:5218"))
+          serviceProvider.GetRequiredService<IConfiguration>().GetConnectionString("TME1") ?? "http://localhost:5218"))
         .AddSingleton<IMapper, Mapper>()
         .AddSingleton<RobotStore>()
         .AddSingleton<MainWindow>()
