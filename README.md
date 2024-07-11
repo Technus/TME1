@@ -3,10 +3,13 @@
 Example Application Based on technological stack as seen below:
 
 Backend: 
-MSSQL + EF Core trough IRepository (For easy DB replacement) + ASP.NET Core (REST API Server)
+ - MSSQL Database
+ - EF Core trough IRepository (For easy DB replacement)
+ - ASP.NET Core (REST API Server)
 
 Frontend:
-REST API Client + WPF UI
+ - REST API Client
+ - WPF UI
 
 # Purpose
 
@@ -19,23 +22,30 @@ The requirements for this task are documented under the folder named Specificati
 # Notes
 
 To properly run backend tests local db is used with the following connection string:
-Server=(localdb)\MSSQLLocalDB;Database=EFTestSample;Trusted_Connection=True;ConnectRetryCount=0
+`Server=(localdb)\MSSQLLocalDB;Database=EFTestSample;Trusted_Connection=True;ConnectRetryCount=0`
 
-Otherwise to run the app it expects the connection string to be placed in secure store (or env. variable)
-under the name of TME1.
+To properly run backend in dev local db is used with the following connection string:
+`Server=(localdb)\MSSQLLocalDB;Database=EFDevSample;Trusted_Connection=True;ConnectRetryCount=0`
 
-Minimal testing was developed using TDD practices. By starting to implement with the most naive approach.
-Throwing not implmemented exceptions.
+Otherwise to run the app it expects the connection string to be placed in config (or env. variable) under the name of TME1.
+
+Tests were developed using TDD practices. By starting with the most naive approach.
+`Throwing not implmemented exceptions.` And then building up the functionality.
+
+The Architecture is far from perfect. As it was designed on the fly for excercise.
+For Proper Clean Architecture see: 
+
+https://github.com/search?q=clean+architecture+language%3AC%23&type=repositories&l=C%23&s=stars&o=desc
 
 # Projects in solution
 
-Abstractions - Where Interfaces and Enums are defined
-TestCommon - Where testing utilities reside
+ - Abstractions - Where Interfaces and Enums are defined
+ - TestCommon - Where testing utilities reside
 
-ServerTests - Where server tests are defined
-ServerCore - Where Entity Framework Core based Database Access Persistence is implemented
-ServerAPI - Where the ASP.NET Core REST API is implemented
+ - ServerTests - Where server tests are defined
+ - ServerCore - Where Entity Framework Core based Database Access Persistence is implemented
+ - ServerAPI - Where the ASP.NET Core REST API is implemented
 
-ClientTests - Where client tests are defined
-ClientCore - Where the REST API headless client is implemented
-ClientApp - Where the WPF Graphical interface is implemented
+ - ClientTests - Where client tests are defined
+ - ClientCore - Where the REST API headless client is implemented
+ - ClientApp - Where the WPF Graphical interface is implemented
