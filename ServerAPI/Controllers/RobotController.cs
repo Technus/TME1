@@ -84,7 +84,7 @@ public class RobotController(
   /// </summary>
   /// <param name="robotStateUpdate"></param>
   /// <returns>updated state</returns>
-  [HttpPost]
+  [HttpPatch]
   public async Task<ActionResult<RobotDto>> StateUpdateAsync([FromBody] RobotStateUpdateDto robotStateUpdate)
   {
     if (!ModelState.IsValid)
@@ -98,8 +98,8 @@ public class RobotController(
   /// </summary>
   /// <param name="robotId"></param>
   /// <returns>updated state</returns>
-  [HttpPost]
-  [Route("{id}")]
+  [HttpGet]
+  [Route("with-new-state/{id}")]
   public async Task<ActionResult<RobotDto>> StateUpdateAsync([FromRoute] int robotId)
   {
     if (!ModelState.IsValid)

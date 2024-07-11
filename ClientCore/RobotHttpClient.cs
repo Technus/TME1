@@ -83,8 +83,21 @@ public class RobotHttpClient<TRobot>(IHttpClientFactory httpClientFactory, strin
     return item;
   }
 
-  private Task<Fin<TRobot>> StateUpdateAsync(int robotId, CancellationToken cancellationToken = default)
-    => throw new NotImplementedException();
+  public async Task<Fin<TRobot>> StateUpdateAsync(int id, CancellationToken cancellationToken = default)
+  {
+    using var httpClient = _httpClientFactory.CreateClient(_connectionString);
+    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_json));
+
+    var result = await httpClient.GetAsync($"/api/robots/with-new-state/{id}", cancellationToken);
+    if (!result.IsSuccessStatusCode)
+      return Error.New("Failed to read");
+
+    var item = await result.Content.ReadAsAsync<TRobot>();
+    if (item is null)
+      return Error.New("Item was null");
+
+    return item;
+  }
 
   public static async IAsyncEnumerable<TValue?> ReadFromNdjsonAsync<TValue>(HttpContent content, [EnumeratorCancellation] CancellationToken cancellationToken = default)
   {

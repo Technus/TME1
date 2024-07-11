@@ -133,4 +133,36 @@ public class TestsRobotHttpClient : TestsBase<RobotHttpClient<RobotDto>>
     if(contains)
       robot.ShouldCompare(robotSample,"because the data should be preserved");
   }
+
+  [Test]
+  [TestCase(true, 3)]
+  [TestCase(false, 4)]
+  public async Task StateUpdateAsync_ShouldReturnData_WhenPresent(bool contains, int id)
+  {
+    //Arrange
+    var fixture = CreateFixture();
+    var sut = CreateSUT(fixture);
+
+    var robotSample = Fakers.RobotDto.Generate("populated");
+
+    using var httpMock = fixture.Create<MockHttpMessageHandler>();
+    var mockEndpoint = httpMock.When($"{_connectionString}/api/robots/with-new-state/{id}");
+    if (contains)
+      mockEndpoint.Respond("application/json", JsonSerializer.Serialize(robotSample));
+    else
+      mockEndpoint.Respond(HttpStatusCode.NotFound);
+
+    var httpClient = httpMock.ToHttpClient();
+    httpClient.BaseAddress = new Uri(_connectionString);
+
+    var clientFactory = fixture.Create<IHttpClientFactory>();
+    clientFactory.CreateClient(_connectionString).Returns(httpClient);
+
+    //Act
+    var result = await sut.StateUpdateAsync(id);
+    //Assert
+    result.TryGetValue(out var robot).Should().Be(contains, "because that is how the api mock was set up");
+    if (contains)
+      robot.ShouldCompare(robotSample, "because the data should be preserved");
+  }
 }
