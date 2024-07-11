@@ -44,6 +44,11 @@ Which were used before specification update.
 Troughout the solution there are many `Fin-s` but no fish. 
 It is how the result pattern is called in the external library. (It also has `Result` but for internal use only...)
 
+Yet another thing to consider is db schema and validation troughout the application. But for current use case it is not so bad as only parameter to a query is id.
+
+
+There also is some rudimentary logging. Mostly to showcase the structured logging.
+
 # Projects in solution
 
  - Abstractions - Where common Interfaces and Enums are defined
