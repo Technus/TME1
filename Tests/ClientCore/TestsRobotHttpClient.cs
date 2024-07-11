@@ -1,7 +1,10 @@
 ﻿using AutoFixture;
+using KellermanSoftware.CompareNetObjects;
 using LanguageExt.Pipes;
+using Microsoft.AspNetCore.Mvc;
 using RichardSzalay.MockHttp;
 using System.IO;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -97,5 +100,37 @@ public class TestsRobotHttpClient : TestsBase<RobotHttpClient<RobotDto>>
     //Assert
     downloadedCount.Should().Be(count, "because it should return all entries");
     //TODO: check data vailidity
+  }
+
+  [Test]
+  [TestCase(true,3)]
+  [TestCase(false,4)]
+  public async Task GetAsync_ShouldReturnData_WhenPresent(bool contains, int id)
+  {
+    //Arrange
+    var fixture = CreateFixture();
+    var sut = CreateSUT(fixture);
+
+    var robotSample = Fakers.RobotDto.Generate("populated");
+
+    using var httpMock = fixture.Create<MockHttpMessageHandler>();
+    var mockEndpoint = httpMock.When($"{_connectionString}/api/robots/{id}");
+    if (contains)
+      mockEndpoint.Respond("application/json", JsonSerializer.Serialize(robotSample));
+    else
+      mockEndpoint.Respond(HttpStatusCode.NotFound);
+
+    var httpClient = httpMock.ToHttpClient();
+    httpClient.BaseAddress = new Uri(_connectionString);
+
+    var clientFactory = fixture.Create<IHttpClientFactory>();
+    clientFactory.CreateClient(_connectionString).Returns(httpClient);
+
+    //Act
+    var result = await sut.GetAsync(id);
+    //Assert
+    result.TryGetValue(out var robot).Should().Be(contains, "because that is how the api mock was set up");
+    if(contains)
+      robot.ShouldCompare(robotSample,"because the data should be preserved");
   }
 }
