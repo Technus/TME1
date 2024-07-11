@@ -37,6 +37,10 @@ For Proper Clean Architecture see:
 
 https://github.com/search?q=clean+architecture+language%3AC%23&type=repositories&l=C%23&s=stars&o=desc
 
+Project was supposed to include pagination of data, which is a rather simple concept. (Cursor/Skip/Take)
+Instead due to lack of time performace to some extent can be expected thanks to `Virtualizing UI controls`.
+Which were used before specification update.
+
 # Projects in solution
 
  - Abstractions - Where Interfaces and Enums are defined
