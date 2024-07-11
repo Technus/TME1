@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace TME1.Core.Migrations
+namespace TME1.ServerCore.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

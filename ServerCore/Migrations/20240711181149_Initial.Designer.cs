@@ -8,10 +8,10 @@ using TME1.ServerCore;
 
 #nullable disable
 
-namespace TME1.Core.Migrations
+namespace TME1.ServerCore.Migrations
 {
-  [DbContext(typeof(RobotContext))]
-    [Migration("20240710215123_Initial")]
+    [DbContext(typeof(RobotContext))]
+    [Migration("20240711181149_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -19,12 +19,12 @@ namespace TME1.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TME1.Core.DataTransferObjects.RobotDto", b =>
+            modelBuilder.Entity("TME1.ServerCore.DataTransferObjects.RobotDto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

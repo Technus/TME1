@@ -1,15 +1,16 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using TME1.ClientApp.Stores;
 
 namespace TME1.ClientApp.ViewModels;
 
 /// <summary>
 /// Design time data
 /// </summary>
-public class MainWindowViewModelDesign : MainWindowViewModel
+public class MainViewModelDesign : MainViewModel
 {
-  public MainWindowViewModelDesign()
+  public MainViewModelDesign() : base(default!)
   {
     for (int i = 0; i < 32; i++)
       AllRobotTiles.Add(new RobotTileViewModel
@@ -25,18 +26,20 @@ public class MainWindowViewModelDesign : MainWindowViewModel
 /// View model for Main Window
 /// </summary>
 /// <remarks>Not a perfect solution to directly use Window for that but in this simple demo app case it will work well</remarks>
-public partial class MainWindowViewModel : BaseViewModel
+public partial class MainViewModel : BaseViewModel
 {
   private const int _noSelection = -1;
+  private readonly RobotStore _robotStore;
   private int _selectedRobotIndex = _noSelection;
   private RobotTileViewModel? _selectedRobot;
 
   private ObservableCollection<RobotTileViewModel>? _robotTiles;
   private ListCollectionView? _filteredRobotTiles;
 
-  public MainWindowViewModel()
+  public MainViewModel(RobotStore robotStore)
   {
     AllRobotTiles = [];
+    _robotStore = robotStore;
   }
 
   /// <summary>
@@ -118,13 +121,9 @@ public partial class MainWindowViewModel : BaseViewModel
   [RelayCommand]
   private async Task LoadRobotsAsync()
   {
-    for (int i = 0; i < 4; i++)
-      AllRobotTiles.Add(new RobotTileViewModel
-      {
-        Name = i.ToString(),
-        Id = i,
-        ChargeLevel = i / 100f,
-      });
+    await _robotStore.GetAllCommandAsync();
+    AllRobotTiles = _robotStore.RobotTiles;
+
     OnPropertyChanged(nameof(CanNavigate));
   }
 
@@ -135,13 +134,17 @@ public partial class MainWindowViewModel : BaseViewModel
   [RelayCommand]
   private async Task UpdateRobotAsync()
   {
-    AllRobotTiles.Clear();
+    if(SelectedRobot is not RobotTileViewModel robot)
+      return;
+
+    await _robotStore.StateUpdateCommandAsync(robot!.Id);
+    AllRobotTiles = _robotStore.RobotTiles;
   }
 
   /// <summary>
   /// IsEnabled for Update Robot command
   /// </summary>
-  public bool CanUpdateRobot => _selectedRobot is not null;
+  public bool CanUpdateRobot => SelectedRobot is not null;
 
   /// <summary>
   /// Navigate `&lt;` command 

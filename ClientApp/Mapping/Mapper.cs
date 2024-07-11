@@ -2,7 +2,7 @@
 using TME1.ClientApp.ViewModels;
 using TME1.ClientCore.Models;
 
-namespace TME1.ClientApp;
+namespace TME1.ClientApp.Mapping;
 /// <summary>
 /// Mapper implementation using source generator
 /// </summary>
@@ -10,7 +10,7 @@ namespace TME1.ClientApp;
 public partial class Mapper : IMapper
 {
   ///<inheritdoc/>
-  public partial RobotTileViewModel MapToModel(RobotModel model);
+  public partial RobotTileViewModel MapToViewModel(RobotModel model);
   ///<inheritdoc/>
-  public partial RobotModel MapToViewModel(RobotTileViewModel viewModel);
+  public partial RobotModel MapToModel(RobotTileViewModel viewModel);
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TME1.ClientApp.Views;
+namespace TME1.ClientApp;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>

@@ -40,11 +40,10 @@ internal class RobotStatusToImageConverter : MarkupExtension, IValueConverter
   /// <exception cref="InvalidOperationException">When resource couldn't be found</exception>
   private static void AddBitmap(RobotStatus status, string brushName)
   {
-    var brush = Application.Current.Resources[brushName] as BitmapImage;
-    if (brush is null)
+    if (Application.Current.Resources[brushName] is not BitmapImage image)
       throw new InvalidOperationException($"{nameof(Brush)} resource with name `{brushName}` does not exist");
 
-    _bitmapDictionary[status] = brush;
+    _bitmapDictionary[status] = image;
   }
 
   /// <summary>

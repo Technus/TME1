@@ -5,7 +5,7 @@ namespace TME1.Abstractions.DataTransferObjects;
 /// Abstraction over robot data
 /// </summary>
 /// <remarks>Used to ensure consistency between layers</remarks>
-public interface IRobot<out TKey> : IIDentifiable<TKey>
+public interface IRobot<out TKey> : IIdentifiable<TKey>
 {
   /// <summary>
   /// User friendly name

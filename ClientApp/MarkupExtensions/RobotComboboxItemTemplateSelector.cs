@@ -7,6 +7,7 @@ namespace TME1.ClientApp.MarkupExtensions;
 /// <summary>
 /// Helper to create <see cref="ComboBoxTemplateSelector"/>
 /// </summary>
+[MarkupExtensionReturnType(typeof(ComboBoxTemplateSelector))]
 public class ComboBoxTemplateSelectorExtension : MarkupExtension
 {
   public DataTemplate? SelectedItemTemplate { get; set; }
@@ -25,7 +26,7 @@ public class ComboBoxTemplateSelectorExtension : MarkupExtension
 }
 
 /// <summary>
-/// Selector for combobox 
+/// Template selector for combobox 
 /// </summary>
 public class ComboBoxTemplateSelector : DataTemplateSelector
 {

@@ -4,42 +4,54 @@ using Serilog;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using TME1.ClientApp.ViewModels;
-using TME1.ClientApp.Views;
+using TME1.ClientApp.Mapping;
+using System.Net.Http;
+using TME1.ClientCore;
+using Microsoft.Extensions.Configuration;
+using TME1.ClientApp.Stores;
 
 namespace TME1.ClientApp;
 /// <summary>
 /// Application root of composition
 /// </summary>
-public class Bootstrapper : IDisposable
+public sealed class Bootstrapper : IDisposable
 {
   private bool _disposedValue;
 
   /// <summary>
   /// Constructed host
   /// </summary>
-  internal IHost AppHost { get; init; }
+  private IHost AppHost { get; init; }
 
   /// <summary>
   /// Composes the application and initializes <see cref="AppHost"/>
   /// </summary>
   /// <param name="args"></param>
-  public Bootstrapper(params string[]? args) => AppHost = CreateHostBuilder(args).Build();
+  public Bootstrapper(params string[]? args) => AppHost = CreateHost(args);
 
   /// <summary>
   /// Compose the application
   /// </summary>
   /// <param name="args"></param>
   /// <returns></returns>
-  private static IHostBuilder CreateHostBuilder(string[]? args) => Host
-    .CreateDefaultBuilder(args)
-    .UseLamar()
-    .UseSerilog()
-    .ConfigureServices(services => services
-      .AddSingleton<IMapper, Mapper>()
-      .AddSingleton<MainWindow>()
-      .AddSingleton<MainWindowViewModel>()
-      .AddMediatR(configuration => configuration
-        .RegisterServicesFromAssemblyContaining<Bootstrapper>()));
+  private static IHost CreateHost(string[]? args)
+  {
+    var builder = Host.CreateDefaultBuilder(args);
+    return builder
+      .UseLamar()
+      .UseSerilog()
+      .ConfigureServices(serviceCollection => serviceCollection
+        .AddSingleton<IHttpClientFactory, HttpClientWithBaseAddressFactory>()
+        .AddSingleton<IRobotHttpClient>(serviceProvider => new RobotHttpClient(
+          serviceProvider.GetRequiredService<IHttpClientFactory>(),
+          serviceProvider.GetRequiredService<IConfiguration>()["TME1"] ?? "http://localhost:5218"))
+        .AddSingleton<IMapper, Mapper>()
+        .AddSingleton<RobotStore>()
+        .AddSingleton<MainWindow>()
+        .AddSingleton<MainViewModel>()
+      )
+      .Build();
+  }
 
   /// <summary>
   /// Starts the apphost and sets the main window and its data context.
@@ -49,16 +61,29 @@ public class Bootstrapper : IDisposable
   /// Instead of using App.xaml to load main window we do it manually.
   /// It is done to get the right objects from IoC and not create them twice.
   /// </remarks>
-  public void Start(Application application)
+  public async Task StartAsync(Application application)
   {
-    AppHost.Start();
+    await AppHost.StartAsync();
 
     application.MainWindow = AppHost.Services.GetRequiredService<MainWindow>();
-    application.MainWindow.DataContext = AppHost.Services.GetRequiredService<MainWindowViewModel>();
+    application.MainWindow.DataContext = AppHost.Services.GetRequiredService<MainViewModel>();
     application.MainWindow.Show();
   }
 
-  protected virtual void Dispose(bool disposing)
+  /// <summary>
+  /// Stops the app host and closes the main window
+  /// </summary>
+  /// <param name="application"></param>
+  /// <returns></returns>
+  public async Task StopAsync(Application application)
+  {
+    ///For sanity
+    application.MainWindow?.Close();
+
+    await AppHost.StopAsync();
+  }
+
+  private void Dispose(bool disposing)
   {
     if (!_disposedValue)
     {

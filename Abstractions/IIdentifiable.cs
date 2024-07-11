@@ -3,7 +3,7 @@
 /// Common logic for data objects to identify them
 /// </summary>
 /// <typeparam name="TId">Identifier type</typeparam>
-public interface IIDentifiable<out TId>
+public interface IIdentifiable<out TId>
 {
   /// <summary>
   /// Unique identifier in a collection or table
