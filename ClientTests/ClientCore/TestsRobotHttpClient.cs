@@ -1,28 +1,24 @@
 ﻿using AutoFixture;
 using KellermanSoftware.CompareNetObjects;
-using LanguageExt.Pipes;
-using Microsoft.AspNetCore.Mvc;
 using RichardSzalay.MockHttp;
-using System.IO;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using TME1.Abstractions.DataTransferObjects;
 using TME1.ClientApp;
-using TME1.ServerCore.DataTransferObjects;
+using TME1.ClientCore.Models;
 
 namespace TME1.Tests.ClientCore;
-public class TestsRobotHttpClient : TestsBase<RobotHttpClient<RobotDto>>
+public class TestsRobotHttpClient : TestsBase<RobotHttpClient<RobotModel>>
 {
   private const string _connectionString = "http://localhost";
 
-  protected override RobotHttpClient<RobotDto> CreateSUT(IFixture fixture)
+  protected override RobotHttpClient<RobotModel> CreateSUT(IFixture fixture)
   {
     fixture.Inject(Substitute.For<IHttpClientFactory>());
     fixture.Inject(new MockHttpMessageHandler());
 
-    return new RobotHttpClient<RobotDto>(
+    return new RobotHttpClient<RobotModel>(
       fixture.Create<IHttpClientFactory>(),
       _connectionString);
   }

@@ -5,7 +5,7 @@ namespace TME1.ClientApp;
 /// Mapper Initialization
 /// </summary>
 [Mapper]
-public class Mapper : IMapper
+public partial class Mapper : IMapper
 {
 
 }

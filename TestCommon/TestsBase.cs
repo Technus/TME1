@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using AutoFixture.AutoNSubstitute;
+using NUnit.Framework;
 
 namespace TME1.Tests;
 /// <summary>
