@@ -14,7 +14,7 @@ namespace API.Controllers;
 /// <param name="repository">Robot repository</param>
 /// <param name="stateUpdateService">robot state upadte service</param>
 [ApiController]
-[Route("robots")]
+[Route("api/robots")]
 public class RobotController(
   ILogger<RobotController> logger, 
   IRobotRepository<int, RobotDto> repository,
@@ -30,7 +30,7 @@ public class RobotController(
   /// Endpoint to get all Robots
   /// </summary>
   /// <param name="cancellationToken">cancelation for enumeration</param>
-  /// <returns></returns>
+  /// <returns>json response or ndjson stream depending on request header</returns>
   [HttpGet]
   public async IAsyncEnumerable<RobotDto> GetAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
@@ -70,9 +70,6 @@ public class RobotController(
 
   private async Task<ActionResult<RobotDto>> StateUpdateAsyncCore(IRobotStateUpdate<int> robotStateUpdate)
   {
-    if (!ModelState.IsValid)
-      return BadRequest();
-
     var result = await _repository.StateUpdateAsync(robotStateUpdate);
     switch (result.Case)
     {
@@ -88,22 +85,27 @@ public class RobotController(
   /// <param name="robotStateUpdate"></param>
   /// <returns>updated state</returns>
   [HttpPatch]
-  public Task<ActionResult<RobotDto>> StateUpdateAsync([FromBody] RobotStateUpdateDto robotStateUpdate)
-    => StateUpdateAsyncCore(robotStateUpdate);
-
-  /// <summary>
-  /// Endpoint to update a Robot State with serverside generated data
-  /// </summary>
-  /// <param name="id"></param>
-  /// <returns>updated state</returns>
-  [HttpPatch]
-  [Route("{id}")]
-  public async Task<ActionResult<RobotDto>> StateUpdateAsync([FromRoute] int id)
+  public async Task<ActionResult<RobotDto>> StateUpdateAsync([FromBody] RobotStateUpdateDto robotStateUpdate)
   {
     if (!ModelState.IsValid)
       return BadRequest();
 
-    var oldRobot = await _repository.GetAsync(id);
+    return await StateUpdateAsyncCore(robotStateUpdate);
+  }
+
+  /// <summary>
+  /// Endpoint to update a Robot State with serverside generated data
+  /// </summary>
+  /// <param name="robotId"></param>
+  /// <returns>updated state</returns>
+  [HttpGet]
+  [Route("with-new-state/{id}")]
+  public async Task<ActionResult<RobotDto>> StateUpdateAsync([FromRoute] int robotId)
+  {
+    if (!ModelState.IsValid)
+      return BadRequest();
+
+    var oldRobot = await _repository.GetAsync(robotId);
     switch (oldRobot.Case)
     {
       case RobotDto dto:

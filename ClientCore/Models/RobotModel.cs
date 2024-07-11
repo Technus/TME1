@@ -1,17 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TME1.Abstractions.DataTransferObjects;
+﻿using TME1.Abstractions.DataTransferObjects;
 using TME1.Abstractions.Enumerations;
 
-namespace TME1.ServerCore.DataTransferObjects;
-public class RobotDto(string name, string model) : IRobot<int>
+namespace TME1.ClientCore.Models;
+public class RobotModel(string name, string model) : IRobot<int>
 {
-  [Key]
   public int Id { get; set; }
 
-  [Required]
   public string Name { get; set; } = name;
 
-  [Required]
   public string Model { get; set; } = model;
 
   public float ChargeLevel { get; set; } = -1;

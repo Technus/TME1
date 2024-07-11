@@ -18,7 +18,13 @@
 	
 	<ItemGroup Label="Common Attributes">
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-			<_Parameter1>$(CustomNamePrefix).Tests</_Parameter1>
+			<_Parameter1>$(CustomNamePrefix).TestCommon</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>$(CustomNamePrefix).ClientTests</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>$(CustomNamePrefix).ServerTests</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
 </Project>
