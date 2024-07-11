@@ -1,0 +1,19 @@
+﻿<Window
+  x:Class="TME1.ClientApp.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:vm="clr-namespace:TME1.ClientApp.ViewModels"
+  Title="{lex:Loc MainWindowTitle}"
+  Width="1000"
+  Height="450"
+  d:DataContext="{d:DesignInstance Type={x:Type vm:MainViewModelDesign},
+                                   IsDesignTimeCreatable=True}"
+  lex:LocalizeDictionary.OutputMissingKeys="True"
+  lex:ResxLocalizationProvider.DefaultAssembly="Robot Status Browser"
+  lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+  mc:Ignorable="d">
+  <ContentPresenter Content="{Binding}" />
+</Window>

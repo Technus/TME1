@@ -37,8 +37,7 @@ public abstract class BaseViewModel : INotifyPropertyChanged, INotifyPropertyCha
   /// <param name="propertyNames">The property names.</param>
   protected void OnPropertyChanging(params string[] propertyNames)
   {
-    if (propertyNames is null)
-      throw new ArgumentNullException(nameof(propertyNames));
+    ArgumentNullException.ThrowIfNull(propertyNames);
 
     foreach (var propertyName in propertyNames)
       OnPropertyChanging(propertyName);
@@ -66,8 +65,7 @@ public abstract class BaseViewModel : INotifyPropertyChanged, INotifyPropertyCha
   /// <param name="propertyNames">The property names.</param>
   protected virtual void OnPropertyChanged(params string[] propertyNames)
   {
-    if (propertyNames is null)
-      throw new ArgumentNullException(nameof(propertyNames));
+    ArgumentNullException.ThrowIfNull(propertyNames);
 
     foreach (var propertyName in propertyNames)
       OnPropertyChanged(propertyName);

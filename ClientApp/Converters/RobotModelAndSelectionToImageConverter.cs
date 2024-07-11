@@ -9,7 +9,6 @@ namespace TME1.ClientApp.Converters;
 /// Converts model name to proper image, with a pseudorandom fallback based on <see cref="object.GetHashCode"/>.
 /// </summary>
 /// <remarks>The resources are only accesed once during class initialization.</remarks>
-[ValueConversion(typeof(string), typeof(BitmapSource))]
 [MarkupExtensionReturnType(typeof(RobotModelAndSelectionToImageConverter))]
 public class RobotModelAndSelectionToImageConverter : MarkupExtension, IMultiValueConverter
 {
@@ -59,7 +58,7 @@ public class RobotModelAndSelectionToImageConverter : MarkupExtension, IMultiVal
   /// </summary>
   /// <param name="bitmap"><see cref="BitmapImage"/> to process</param>
   /// <returns>Image recolorized to white</returns>
-  private static BitmapSource GetWhite(BitmapImage bitmap)
+  private static WriteableBitmap GetWhite(BitmapImage bitmap)
   {
     var writeableBitmap = new WriteableBitmap(new BitmapImage(bitmap.UriSource));
 

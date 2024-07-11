@@ -10,7 +10,7 @@ using TME1.ServerCore.DataTransferObjects;
 
 namespace TME1.Core.Repositories;
 /// <summary>
-/// EF Core data access
+/// EF Core Robot data access
 /// </summary>
 /// <param name="context"></param>
 /// <param name="logger"></param>
@@ -54,28 +54,8 @@ public class RobotRepository(
 
   public async IAsyncEnumerable<Fin<RobotDto>> GetAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
-    var enumerator = _context.Robots.AsNoTracking().AsAsyncEnumerable().GetAsyncEnumerator(cancellationToken);
-    var errors = Errors.None;
-    do
-    {
-      RobotDto robot = default!;
-      try
-      {
-        if (!await enumerator.MoveNextAsync())
-          break;
-        robot = enumerator.Current;
-      }
-      catch (Exception e)
-      {
-        var error = Error.New(e);
-        _logger.LogGetError(error);
-        errors += error;
-      }
+    await foreach (var robot in _context.Robots.AsNoTracking().AsAsyncEnumerable())
       yield return robot;
-    }
-    while (!cancellationToken.IsCancellationRequested);
-    if (errors != Errors.None)
-      yield return errors;
   }
 
   public async Task<Fin<RobotDto>> GetAsync(int key, CancellationToken cancellationToken = default)

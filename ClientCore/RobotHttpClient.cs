@@ -3,7 +3,7 @@ using LanguageExt.Common;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
-using TME1.Abstractions.DataTransferObjects;
+using TME1.ClientCore.Models;
 
 namespace TME1.ClientApp;
 
@@ -12,15 +12,20 @@ namespace TME1.ClientApp;
 /// </summary>
 /// <param name="httpClientFactory">factory for http clients</param>
 /// <param name="connectionString">conection string to use while creating http client</param>
-public class RobotHttpClient<TRobot>(IHttpClientFactory httpClientFactory, string connectionString) where TRobot : IRobot<int>
+public class RobotHttpClient(IHttpClientFactory httpClientFactory, string connectionString) : IRobotHttpClient
 {
   private const string _ndJson = "application/x-ndjson";
   private const string _json = "application/json";
+  private static readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
+  {
+    PropertyNameCaseInsensitive = true
+  };
 
   private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
   private readonly string _connectionString = connectionString;
 
-  public async IAsyncEnumerable<Fin<TRobot>> GetAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
+  /// <inheritdoc/>
+  public async IAsyncEnumerable<Fin<RobotModel>> GetAllAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
     using var httpClient = _httpClientFactory.CreateClient(_connectionString);
     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_ndJson));
@@ -38,7 +43,7 @@ public class RobotHttpClient<TRobot>(IHttpClientFactory httpClientFactory, strin
     switch (mediaType)
     {
       case _json:
-        var jsonContent = await content.ReadAsAsync<IEnumerable<TRobot>>(cancellationToken);
+        var jsonContent = await content.ReadAsAsync<IEnumerable<RobotModel>>(cancellationToken);
         foreach (var item in jsonContent)
         {
           if (item is null)
@@ -51,7 +56,7 @@ public class RobotHttpClient<TRobot>(IHttpClientFactory httpClientFactory, strin
         yield break;
 
       case _ndJson:
-        var ndjsonContent = ReadFromNdjsonAsync<TRobot>(content, cancellationToken);
+        var ndjsonContent = ReadFromNdjsonAsync<RobotModel>(content, cancellationToken);
         await foreach (var item in ndjsonContent)
         {
           if (item is null)
@@ -67,7 +72,8 @@ public class RobotHttpClient<TRobot>(IHttpClientFactory httpClientFactory, strin
     }
   }
 
-  public async Task<Fin<TRobot>> GetAsync(int id, CancellationToken cancellationToken = default)
+  /// <inheritdoc/>
+  public async Task<Fin<RobotModel>> GetAsync(int id, CancellationToken cancellationToken = default)
   {
     using var httpClient = _httpClientFactory.CreateClient(_connectionString);
     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_json));
@@ -76,14 +82,15 @@ public class RobotHttpClient<TRobot>(IHttpClientFactory httpClientFactory, strin
     if (!result.IsSuccessStatusCode)
       return Error.New("Failed to read");
 
-    var item = await result.Content.ReadAsAsync<TRobot>();
-    if(item is null)
+    var item = await result.Content.ReadAsAsync<RobotModel>();
+    if (item is null)
       return Error.New("Item was null");
 
     return item;
   }
 
-  public async Task<Fin<TRobot>> StateUpdateAsync(int id, CancellationToken cancellationToken = default)
+  /// <inheritdoc/>
+  public async Task<Fin<RobotModel>> StateUpdateAsync(int id, CancellationToken cancellationToken = default)
   {
     using var httpClient = _httpClientFactory.CreateClient(_connectionString);
     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_json));
@@ -92,14 +99,14 @@ public class RobotHttpClient<TRobot>(IHttpClientFactory httpClientFactory, strin
     if (!result.IsSuccessStatusCode)
       return Error.New("Failed to read");
 
-    var item = await result.Content.ReadAsAsync<TRobot>();
+    var item = await result.Content.ReadAsAsync<RobotModel>();
     if (item is null)
       return Error.New("Item was null");
 
     return item;
   }
 
-  public static async IAsyncEnumerable<TValue?> ReadFromNdjsonAsync<TValue>(HttpContent content, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+  private static async IAsyncEnumerable<TValue?> ReadFromNdjsonAsync<TValue>(HttpContent content, [EnumeratorCancellation] CancellationToken cancellationToken = default)
   {
     using var contentStream = await content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
     using var contentStreamReader = new StreamReader(contentStream);
@@ -111,7 +118,7 @@ public class RobotHttpClient<TRobot>(IHttpClientFactory httpClientFactory, strin
       if (line is null)
         continue;
 
-      yield return JsonSerializer.Deserialize<TValue>(line);
+      yield return JsonSerializer.Deserialize<TValue>(line, _jsonSerializerOptions);
     }
   }
 }

@@ -153,6 +153,10 @@
     <value>Unsafe</value>
     <comment>Not Approachabe/Dangerous Value of Position</comment>
   </data>
+  <data name="RobotStatus_Error" xml:space="preserve">
+    <value>Error</value>
+    <comment>Malfunctioning/Needs assistance/Needs maintenance Value of Status</comment>
+  </data>
   <data name="RobotStatus_Idle" xml:space="preserve">
     <value>Idle</value>
     <comment>Idle/AwaitingOrders Value of Status</comment>

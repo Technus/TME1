@@ -5,6 +5,8 @@ namespace TME1.ClientApp.Converters;
 /// <summary>
 /// Used to perform ternary operator
 /// </summary>
+[MarkupExtensionReturnType(typeof(BoolToValueConverter))]
+[ValueConversion(typeof(bool),typeof(object))]
 class BoolToValueConverter : MarkupExtension, IValueConverter
 {
   public object? IfTrue { get; set; }

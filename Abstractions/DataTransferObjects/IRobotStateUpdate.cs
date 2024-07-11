@@ -5,7 +5,7 @@ namespace TME1.Abstractions.DataTransferObjects;
 /// Abstraction over message with robot status update
 /// </summary>
 /// <remarks>Used to ensure consistency between layers</remarks>
-public interface IRobotStateUpdate<out TKey> : IIDentifiable<TKey>
+public interface IRobotStateUpdate<out TKey> : IIdentifiable<TKey>
 {
   /// <summary>
   /// <see cref="IRobot{TKey}.Status"/> to set

@@ -142,6 +142,15 @@ namespace TME1.ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string RobotStatus_Error {
+            get {
+                return ResourceManager.GetString("RobotStatus_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Idle.
         /// </summary>
         internal static string RobotStatus_Idle {

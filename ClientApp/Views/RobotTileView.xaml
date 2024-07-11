@@ -119,7 +119,10 @@
       Grid.Column="5"
       Style="{StaticResource ToLeft}">
       <Image Source="{StaticResource OmronImg}" Style="{StaticResource PaddedMiscIcon}" />
-      <TextBlock Style="{StaticResource PaddedParagraph3}" Text="{Binding StatusMessage, Converter={conv:WrapInParenthesisConverter}}" />
+      <TextBlock
+        Style="{StaticResource PaddedParagraph3}"
+        Text="{Binding StatusMessage, Converter={conv:WrapInParenthesisConverter}}"
+        TextWrapping="WrapWithOverflow" />
     </StackPanel>
 
     <StackPanel
@@ -127,7 +130,10 @@
       Grid.Column="5"
       Style="{StaticResource ToLeft}">
       <Image Source="{StaticResource FanucImg}" Style="{StaticResource PaddedMiscIcon}" />
-      <TextBlock Style="{StaticResource PaddedParagraph3}" Text="{Binding PositionMessage}" />
+      <TextBlock
+        Style="{StaticResource PaddedParagraph3}"
+        Text="{Binding PositionMessage}"
+        TextWrapping="WrapWithOverflow" />
     </StackPanel>
     <Border
       Grid.RowSpan="{StaticResource SpanAll}"

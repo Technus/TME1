@@ -4,25 +4,48 @@ namespace TME1.ClientApp;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : Application
+public sealed partial class App : Application, IDisposable
 {
   private Bootstrapper? _bootstrapper;
+  private bool disposedValue;
 
   /// <summary>
-  /// Bootstraps with: <see cref="Bootstrapper.Start(Application)"/>
+  /// Bootstraps with: <see cref="Bootstrapper.StartAsync(Application)"/>
   /// </summary>
   /// <param name="e"></param>
-  protected override void OnStartup(StartupEventArgs e)
+  protected override async void OnStartup(StartupEventArgs e)
   {
     base.OnStartup(e);
-    _bootstrapper = new Bootstrapper(e.Args);
-    _bootstrapper.Start(this);
+
+    var bootstrapper = new Bootstrapper(e.Args);
+    _bootstrapper = bootstrapper;
+    await bootstrapper.StartAsync(this);
   }
 
-  protected override void OnExit(ExitEventArgs e)
+  protected override async void OnExit(ExitEventArgs e)
   {
     base.OnExit(e);
-    _bootstrapper?.Dispose();
+
+    if (_bootstrapper is Bootstrapper bootstrapper)
+      await bootstrapper.StopAsync(this);
+  }
+
+  private void Dispose(bool disposing)
+  {
+    if (!disposedValue)
+    {
+      if (disposing)
+      {
+        _bootstrapper?.Dispose();
+      }
+      disposedValue = true;
+    }
+  }
+
+  public void Dispose()
+  {
+    Dispose(disposing: true);
+    GC.SuppressFinalize(this);
   }
 }
 

@@ -6,22 +6,25 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using TME1.ClientApp;
-using TME1.ClientCore.Models;
 
 namespace TME1.Tests.ClientCore;
-public class TestsRobotHttpClient : TestsBase<RobotHttpClient<RobotModel>>
-{
-  private const string _connectionString = "http://localhost";
 
-  protected override RobotHttpClient<RobotModel> CreateSUT(IFixture fixture)
+public class TestsRobotHttpClient : TestsIRobotHttpClient<RobotHttpClient>
+{
+  protected override RobotHttpClient CreateSUT(IFixture fixture)
   {
     fixture.Inject(Substitute.For<IHttpClientFactory>());
     fixture.Inject(new MockHttpMessageHandler());
 
-    return new RobotHttpClient<RobotModel>(
+    return new RobotHttpClient(
       fixture.Create<IHttpClientFactory>(),
       _connectionString);
   }
+}
+
+public abstract class TestsIRobotHttpClient<TSUT> : TestsBase<TSUT> where TSUT : IRobotHttpClient
+{
+  protected const string _connectionString = "http://localhost";
 
   [Test]
   [TestCase(0)]

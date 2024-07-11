@@ -7,12 +7,14 @@ using TME1.Core.Repositories;
 using TME1.Core.Services;
 using TME1.ServerCore;
 using TME1.ServerCore.DataTransferObjects;
+using TME1.Tests;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers()
-  .AddNdjson();
+  .AddNdjson();//For async enumeration
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -38,7 +40,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddDbContext<RobotContext>(config 
-  => config.UseSqlServer(builder.Configuration["TME1"], options 
+  => config.UseSqlServer(builder.Configuration.GetConnectionString("TME1"), options 
     => options.MigrationsAssembly(typeof(RobotContext).Assembly.GetName().Name)), ServiceLifetime.Singleton);
 
 builder.Services
@@ -46,12 +48,24 @@ builder.Services
   .AddSingleton<IRobotStateService<int>, RobotStateService>();
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();
   app.UseSwaggerUI();
+
+  var context = app.Services.GetRequiredService<RobotContext>();
+
+  //Ensure created and fill with random data if empty
+
+  //await context.Database.EnsureDeletedAsync();
+  await context.Database.EnsureCreatedAsync();
+  if(!await context.Robots.AnyAsync())
+  {
+    await context.Robots.AddRangeAsync(Fakers.RobotDto.Generate(100));
+    await context.SaveChangesAsync();
+  }
 }
 
 app.UseHttpsRedirection();

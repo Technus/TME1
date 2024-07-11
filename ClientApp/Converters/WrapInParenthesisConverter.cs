@@ -1,5 +1,4 @@
 ﻿using JasperFx.Core;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
@@ -7,6 +6,8 @@ namespace TME1.ClientApp.Converters;
 /// <summary>
 /// Wraps the string in parenthesis if it is not null or empty
 /// </summary>
+[ValueConversion(typeof(string),typeof(string))]
+[MarkupExtensionReturnType(typeof(WrapInParenthesisConverter))]
 public class WrapInParenthesisConverter : MarkupExtension, IValueConverter
 {
   /// <summary>

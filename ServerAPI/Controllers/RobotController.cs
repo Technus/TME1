@@ -96,16 +96,16 @@ public class RobotController(
   /// <summary>
   /// Endpoint to update a Robot State with serverside generated data
   /// </summary>
-  /// <param name="robotId"></param>
+  /// <param name="id"></param>
   /// <returns>updated state</returns>
   [HttpGet]
   [Route("with-new-state/{id}")]
-  public async Task<ActionResult<RobotDto>> StateUpdateAsync([FromRoute] int robotId)
+  public async Task<ActionResult<RobotDto>> StateUpdateAsync([FromRoute] int id)
   {
     if (!ModelState.IsValid)
       return BadRequest();
 
-    var oldRobot = await _repository.GetAsync(robotId);
+    var oldRobot = await _repository.GetAsync(id);
     switch (oldRobot.Case)
     {
       case RobotDto dto:
