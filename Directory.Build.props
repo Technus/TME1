@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		
 		<CustomNamePrefix>TME1</CustomNamePrefix>
-		<AssemblyName>$(CustomNamePrefix).$(MSBuildProjectName)</AssemblyName>
+    <AssemblyFileName>$(CustomNamePrefix).$(MSBuildProjectName)</AssemblyFileName>
 		<RootNamespace>$(CustomNamePrefix).$(MSBuildProjectName.Replace(" ", ""))</RootNamespace>
 	</PropertyGroup>
 
