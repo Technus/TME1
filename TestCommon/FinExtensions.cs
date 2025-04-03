@@ -9,18 +9,18 @@ public static class FinExtensions
   /// <summary>
   /// Applies method try pattern to <see cref="Fin{A}"/>
   /// </summary>
-  /// <typeparam name="A"></typeparam>
+  /// <typeparam name="T"></typeparam>
   /// <param name="fin">result struct</param>
   /// <param name="value">underlying value</param>
   /// <returns>true if <see cref="Fin{A}.IsSucc"/></returns>
-  public static bool TryGetValue<A>(this Fin<A> fin, out A value)
+  public static bool TryGetValue<T>(this Fin<T> fin, out T value)
   {
     if (fin.IsFail)
     {
       value = default!;
       return false;
     }
-    value = (A)fin;
+    value = (T)fin;
     return true;
   }
 }

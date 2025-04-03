@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting;
 using Lamar.Microsoft.DependencyInjection;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +21,7 @@ public sealed class Bootstrapper : IDisposable
   /// <summary>
   /// Constructed host
   /// </summary>
-  private IHost AppHost { get; init; }
+  private IHost AppHost { get; }
 
   /// <summary>
   /// Composes the application and initializes <see cref="AppHost"/>

@@ -30,20 +30,20 @@ public sealed partial class App : Application, IDisposable
   {
     base.OnExit(e);
 
-    if (_bootstrapper is Bootstrapper bootstrapper)
-      await bootstrapper.StopAsync(this);
+    if (_bootstrapper is not null)
+      await _bootstrapper.StopAsync(this);
   }
 
   private void Dispose(bool disposing)
   {
-    if (!disposedValue)
+    if (disposedValue) return;
+    
+    if (disposing)
     {
-      if (disposing)
-      {
-        _bootstrapper?.Dispose();
-      }
-      disposedValue = true;
+      _bootstrapper?.Dispose();
     }
+    
+    disposedValue = true;
   }
 
   public void Dispose()

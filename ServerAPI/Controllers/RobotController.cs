@@ -49,7 +49,7 @@ public class RobotController(
   }
 
   /// <summary>
-  /// Endpoint to get a Robot by its <p
+  /// Endpoint to get a Robot by its <paramref name="id"/>
   /// </summary>
   /// <returns></returns>
   [HttpGet]
