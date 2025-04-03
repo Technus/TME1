@@ -1,22 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-		<ApplicationIcon>robot.ico</ApplicationIcon>
-		<!--Due to WPF bug assembly name should be set directly, we can also set a nice user friendly name here-->
-		<AssemblyName>Robot Status Browser</AssemblyName>
+    <ApplicationIcon>robot.ico</ApplicationIcon>
+    <!--Due to WPF bug assembly name should be set directly, we can also set a nice user friendly name here-->
+    <AssemblyName>Robot Status Browser</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="Lamar.Microsoft.DependencyInjection" Version="13.0.4" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-    <PackageReference Include="Riok.Mapperly" Version="3.6.0" />
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
-    <PackageReference Include="System.Text.Json" Version="8.0.4" />
-    <PackageReference Include="VirtualizingWrapPanel" Version="2.0.10" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Lamar.Microsoft.DependencyInjection" Version="14.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
+    <PackageReference Include="Riok.Mapperly" Version="4.2.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+    <PackageReference Include="System.Text.Json" Version="9.0.3" />
+    <PackageReference Include="VirtualizingWrapPanel" Version="2.1.1" />
     <PackageReference Include="WpfAnalyzers" Version="4.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

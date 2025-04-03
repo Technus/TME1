@@ -3,21 +3,21 @@
   <PropertyGroup>
     <AssemblyName>$(AssemblyFileName)</AssemblyName>
     <TargetFramework>net8.0</TargetFramework>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="35.5.1" />
+    <PackageReference Include="Bogus" Version="35.6.2" />
     <PackageReference Include="Ndjson.AsyncStreams.AspNetCore.Mvc" Version="1.3.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
