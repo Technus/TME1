@@ -1,4 +1,4 @@
-﻿using TME1.ClientApp.ViewModels;
+﻿using TME1.ClientApp.Components.Robot;
 using TME1.ClientCore.Models;
 
 namespace TME1.ClientApp.Mapping;

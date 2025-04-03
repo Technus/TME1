@@ -1,7 +1,7 @@
 ﻿using TME1.Abstractions.DataTransferObjects;
 using TME1.Abstractions.Enumerations;
 
-namespace TME1.ClientApp.ViewModels;
+namespace TME1.ClientApp.Components.Robot;
 
 /// <summary>
 /// Design time data

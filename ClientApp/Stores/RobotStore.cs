@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using TME1.ClientApp.Components.Robot;
 using TME1.ClientApp.Mapping;
-using TME1.ClientApp.ViewModels;
 using TME1.ClientCore;
 using TME1.ClientCore.Models;
 

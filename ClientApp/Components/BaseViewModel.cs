@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TME1.ClientApp.ViewModels;
+namespace TME1.ClientApp.Components;
 /// <summary>
 /// Base 'Observable' View Model, To simplify bindings
 /// </summary>

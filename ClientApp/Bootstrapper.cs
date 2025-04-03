@@ -1,14 +1,14 @@
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Lamar.Microsoft.DependencyInjection;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using TME1.ClientApp.ViewModels;
 using TME1.ClientApp.Mapping;
 using System.Net.Http;
 using TME1.ClientCore;
 using Microsoft.Extensions.Configuration;
 using TME1.ClientApp.Stores;
+using TME1.ClientApp.Components.Main;
 
 namespace TME1.ClientApp;
 /// <summary>

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace TME1.ClientApp.Views;
+namespace TME1.ClientApp.Components.Robot;
 /// <summary>
 /// Interaction logic for RobotTile.xaml
 /// </summary>

@@ -1,17 +1,17 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
-using TME1.Abstractions.DataTransferObjects;
+using TME1.ClientApp.Components.Robot;
 using TME1.ClientApp.Stores;
 
-namespace TME1.ClientApp.ViewModels;
+namespace TME1.ClientApp.Components.Main;
 
 /// <summary>
 /// Design time data
 /// </summary>
 public class MainViewModelDesign : MainViewModel
 {
-  public MainViewModelDesign() : base(default!)
+  public MainViewModelDesign()
   {
     for (int i = 0; i < 32; i++)
       AllRobotTiles.Add(new RobotTileViewModel
@@ -36,6 +36,8 @@ public partial class MainViewModel : BaseViewModel
 
   private ObservableCollection<RobotTileViewModel>? _robotTiles;
   private ListCollectionView? _filteredRobotTiles;
+
+  public MainViewModel() : this(default!) { }
 
   public MainViewModel(RobotStore robotStore)
   {
