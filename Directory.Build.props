@@ -9,6 +9,21 @@
     <RootNamespace>$(CustomNamePrefix).$(MSBuildProjectName.Replace(" ", ""))</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Label="Versioning">
+    <VersionMajor>$([System.Version]::Parse($(Version)).get_Major())</VersionMajor>
+    <VersionMinor>$([System.Version]::Parse($(Version)).get_Minor())</VersionMinor>
+    <VersionBuild>$([System.Version]::Parse($(Version)).get_Build())</VersionBuild>
+    <VersionRevision>$([System.Version]::Parse($(Version)).get_Revision())</VersionRevision>
+
+    <VersionBuildDate>$([System.DateTime]::op_Subtraction($([System.DateTime]::get_Now().get_Date()),$([System.DateTime]::new(2000,1,1))).get_TotalDays())</VersionBuildDate>
+    <VersionBuildTime Condition=" '$(Configuration)' == 'Debug' ">$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</VersionBuildTime>
+
+    <PackageVersion>$(VersionMajor).$(VersionMinor).$(VersionBuild)</PackageVersion>
+    <FileVersion Condition=" '$(Configuration)' != 'Debug' ">$(VersionMajor).$(VersionMinor).$(VersionBuildDate).$(VersionBuildTime)</FileVersion>
+    <FileVersion Condition=" '$(Configuration)' == 'Debug' ">$(VersionMajor).$(VersionMinor).$(VersionBuildDate).65535</FileVersion>
+    <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionBuild).$(VersionRevision)</AssemblyVersion>
+  </PropertyGroup>
+
   <ItemGroup Label="Common References">
     <PackageReference Update="SonarAnalyzer.CSharp" Version="10.7.0.110445">
       <PrivateAssets>all</PrivateAssets>
