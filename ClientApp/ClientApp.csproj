@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -7,12 +7,26 @@
     <ApplicationIcon>robot.ico</ApplicationIcon>
     <!--Due to WPF bug assembly name should be set directly, we can also set a nice user friendly name here-->
     <AssemblyName>Robot Status Browser</AssemblyName>
+
+
+    <GenerateEvergineContent>False</GenerateEvergineContent>
+    <GenerateEvergineAssets>False</GenerateEvergineAssets>
+    <GenerateEvergineScenesCode>False</GenerateEvergineScenesCode>
+    <EvergineAssetContent>$(ProjectDir)Content</EvergineAssetContent>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Evergine.DirectX11" Version="2025.3.18.7" />
+    <PackageReference Include="Evergine.Framework" Version="2025.3.18.7" />
+    <PackageReference Include="Evergine.HLSLEverywhere" Version="2025.3.18.7" />
+    <PackageReference Include="Evergine.Targets" Version="2025.3.18.7" />
+    <PackageReference Include="Evergine.Targets.Windows" Version="2025.3.18.7" />
+    <PackageReference Include="Evergine.WPF" Version="2025.3.18.7" />
+    <PackageReference Include="Evergine.XAudio2" Version="2025.3.18.7" />
     <PackageReference Include="Lamar.Microsoft.DependencyInjection" Version="14.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Riok.Mapperly" Version="4.2.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
     <PackageReference Include="System.Text.Json" Version="9.0.3" />
@@ -31,6 +45,7 @@
   <ItemGroup>
     <Resource Include="Fonts\*.*" />
     <Resource Include="Images\*.png" />
+    <Resource Include="Components\Evergine\Shaders\**\*.*" />
   </ItemGroup>
 
   <ItemGroup>

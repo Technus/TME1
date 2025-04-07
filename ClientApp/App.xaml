@@ -33,6 +33,9 @@
         <comp:RobotTileView />
       </DataTemplate>
 
+      <DataTemplate xmlns:comp="clr-namespace:TME1.ClientApp.Components.Evergine" DataType="{x:Type comp:EvergineViewModel}">
+        <comp:EvergineView />
+      </DataTemplate>
 
     </ResourceDictionary>
   </Application.Resources>

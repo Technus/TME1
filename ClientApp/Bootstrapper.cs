@@ -9,6 +9,11 @@ using TME1.ClientCore;
 using Microsoft.Extensions.Configuration;
 using TME1.ClientApp.Stores;
 using TME1.ClientApp.Components.Main;
+using Evergine.WPF;
+using Evergine.DirectX11;
+using Evergine.XAudio2;
+using Evergine.Common.Graphics;
+using TME1.ClientApp.Components.Evergine;
 
 namespace TME1.ClientApp;
 /// <summary>
@@ -49,6 +54,19 @@ public sealed class Bootstrapper : IDisposable
         .AddSingleton<RobotStore>()
         .AddSingleton<MainWindow>()
         .AddSingleton<MainViewModel>()
+        .AddSingleton(new WPFWindowsSystem(Application.Current))
+        .AddSingleton(x =>
+        {
+          var ctx = new DX11GraphicsContext();
+#if DEBUG
+          ctx.CreateDevice(new ValidationLayer(ValidationLayer.NotifyMethod.Trace));
+#else
+          ctx.CreateDevice();
+#endif
+          return ctx;
+        })
+        .AddSingleton<XAudioDevice>()
+        .AddSingleton<EvergineViewModel>()
       );
 
     return builder.Build();
@@ -66,8 +84,20 @@ public sealed class Bootstrapper : IDisposable
   {
     await AppHost.StartAsync();
 
+    var graphicsContext = AppHost.Services.GetRequiredService<DX11GraphicsContext>();
+
+    AppHost.Services.GetRequiredService<WPFWindowsSystem>().Run(
+      loadAction: () =>
+      {
+
+      },
+      renderCallback: () =>
+      {
+        graphicsContext.DXDeviceContext.Flush();
+      });
+
     application.MainWindow = AppHost.Services.GetRequiredService<MainWindow>();
-    application.MainWindow.DataContext = AppHost.Services.GetRequiredService<MainViewModel>();
+    application.MainWindow.DataContext = AppHost.Services.GetRequiredService<EvergineViewModel>();
     application.MainWindow.Show();
   }
 
