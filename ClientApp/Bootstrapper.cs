@@ -14,6 +14,7 @@ using Evergine.DirectX11;
 using Evergine.XAudio2;
 using Evergine.Common.Graphics;
 using TME1.ClientApp.Components.Evergine;
+using Microsoft.Extensions.Logging;
 
 namespace TME1.ClientApp;
 /// <summary>
@@ -44,7 +45,17 @@ public sealed class Bootstrapper : IDisposable
     var builder = Host.CreateDefaultBuilder(args);
     builder
       .UseLamar()
-      .UseSerilog()
+      .UseSerilog((ctx, services, config) =>
+      {
+#if DEBUG
+        config.MinimumLevel.Debug();
+        config.WriteTo.Debug(restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Verbose);
+#else
+        config.MinimumLevel.Information();
+#endif
+        config.WriteTo.Console(restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Verbose, standardErrorFromLevel: Serilog.Events.LogEventLevel.Warning);
+        config.WriteTo.File("logs/.log", rollingInterval: RollingInterval.Day, restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Debug);
+      })
       .ConfigureServices(serviceCollection => serviceCollection
         .AddSingleton<IHttpClientFactory, HttpClientWithBaseAddressFactory>()
         .AddSingleton<IRobotHttpClient>(serviceProvider => new RobotHttpClient(
@@ -55,7 +66,7 @@ public sealed class Bootstrapper : IDisposable
         .AddSingleton<MainWindow>()
         .AddSingleton<MainViewModel>()
         .AddSingleton(new WPFWindowsSystem(Application.Current))
-        .AddSingleton(x =>
+        .AddSingleton(static x =>
         {
           var ctx = new DX11GraphicsContext();
 #if DEBUG
@@ -63,6 +74,14 @@ public sealed class Bootstrapper : IDisposable
 #else
           ctx.CreateDevice();
 #endif
+          var logger = x.GetService<ILogger<Bootstrapper>>();
+          if(logger is not null)
+            for (int i = 0; ctx.DXFactory.EnumAdapters1(i, out var adapter).Success; i++)
+                logger?.LogInformation("Adapter{i}: {adapter}, Ram: {video} {system} {shared}", i,
+                  adapter.Description.Description, 
+                  adapter.Description.DedicatedVideoMemory,
+                  adapter.Description.DedicatedSystemMemory,
+                  adapter.Description.SharedSystemMemory);
           return ctx;
         })
         .AddSingleton<XAudioDevice>()

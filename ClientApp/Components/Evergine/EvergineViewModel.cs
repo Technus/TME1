@@ -73,8 +73,13 @@ public partial class EvergineViewModel : EvergineViewModelBase
   {
     while (!token.IsCancellationRequested)
     {
-      await Application.Current.Dispatcher.InvokeAsync(Draw);
-      await Task.Delay(100, token);
+      if (Application.Current is var app and not null)
+      {
+        await app.Dispatcher.InvokeAsync(Draw);
+        await Task.Delay(100, token);
+      }
+      else
+        return;
     }
   }
 
